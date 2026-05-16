@@ -1,0 +1,1060 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="BabyQ">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="系列: 量化交易入门作者: [BabyQ]日期: 2026-05-16标签: #量化交易 #风险管理 #仓位管理 #止损 #凯利公式   目录 风险类型 仓位管理 止损策略 风险分散 压力测试 下一篇预告   一、风险类型1.1 风险分类12345678910111213141516┌─────────────────────────────────────────┐│">
+<meta property="og:type" content="article">
+<meta property="og:title" content="量化交易的风险管理——量化交易入门系列（八）">
+<meta property="og:url" content="https://littlebabyq.github.io/2026/05/16/Quantitative%20Trading/08-risk-management/index.html">
+<meta property="og:site_name" content="BabyQ Blog">
+<meta property="og:description" content="系列: 量化交易入门作者: [BabyQ]日期: 2026-05-16标签: #量化交易 #风险管理 #仓位管理 #止损 #凯利公式   目录 风险类型 仓位管理 止损策略 风险分散 压力测试 下一篇预告   一、风险类型1.1 风险分类12345678910111213141516┌─────────────────────────────────────────┐│">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-05-16T02:00:00.000Z">
+<meta property="article:modified_time" content="2026-05-16T07:58:43.598Z">
+<meta property="article:author" content="BabyQ">
+<meta property="article:tag" content="仓位管理">
+<meta property="article:tag" content="凯利公式">
+<meta property="article:tag" content="止损">
+<meta property="article:tag" content="量化交易">
+<meta property="article:tag" content="风险管理">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>量化交易的风险管理——量化交易入门系列（八） - BabyQ Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"littlebabyq.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>BabyQ&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/bg2.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="量化交易的风险管理——量化交易入门系列（八）"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-05-16 10:00" pubdate>
+          2026年5月16日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          53 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">量化交易的风险管理——量化交易入门系列（八）</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <blockquote>
+<p><strong>系列</strong>: 量化交易入门<br><strong>作者</strong>: [BabyQ]<br><strong>日期</strong>: 2026-05-16<br><strong>标签</strong>: #量化交易 #风险管理 #仓位管理 #止损 #凯利公式</p>
+</blockquote>
+<hr>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ol>
+<li><a href="#%E4%B8%80%E9%A3%8E%E9%99%A9%E7%B1%BB%E5%9E%8B">风险类型</a></li>
+<li><a href="#%E4%BA%8C%E4%BB%93%E4%BD%8D%E7%AE%A1%E7%90%86">仓位管理</a></li>
+<li><a href="#%E4%B8%89%E6%AD%A2%E6%8D%9F%E7%AD%96%E7%95%A5">止损策略</a></li>
+<li><a href="#%E5%9B%9B%E9%A3%8E%E9%99%A9%E5%88%86%E6%95%A3">风险分散</a></li>
+<li><a href="#%E4%BA%94%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95">压力测试</a></li>
+<li><a href="#%E5%85%AD%E4%B8%8B%E4%B8%80%E7%AF%87%E9%A2%84%E5%91%8A">下一篇预告</a></li>
+</ol>
+<hr>
+<h2 id="一、风险类型"><a href="#一、风险类型" class="headerlink" title="一、风险类型"></a>一、风险类型</h2><h3 id="1-1-风险分类"><a href="#1-1-风险分类" class="headerlink" title="1.1 风险分类"></a>1.1 风险分类</h3><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">┌─────────────────────────────────────────┐<br>│              量化交易风险分类             │<br>├─────────────────────────────────────────┤<br>│                                         │<br>│  市场风险      │  模型风险      │  操作风险   │<br>│  • 价格波动    │  • 过拟合      │  • 系统故障  │<br>│  • 流动性风险  │  • 模型失效    │  • 网络中断  │<br>│  • 黑天鹅事件  │  • 参数漂移    │  • 数据错误  │<br>│  • 汇率风险    │  • 样本外失效  │  • 代码<span class="hljs-keyword">bug </span>  │<br>├─────────────────────────────────────────┤<br>│  执行风险      │  合规风险                    │<br>│  • 滑点        │  • 监管变化                  │<br>│  • 市场冲击    │  • 内幕交易风险              │<br>│  • 订单错误    │  • 信息披露要求              │<br>│                                         │<br>└─────────────────────────────────────────┘<br></code></pre></td></tr></table></figure>
+
+<h3 id="1-2-各类风险详解"><a href="#1-2-各类风险详解" class="headerlink" title="1.2 各类风险详解"></a>1.2 各类风险详解</h3><table>
+<thead>
+<tr>
+<th>风险类型</th>
+<th>说明</th>
+<th>案例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>市场风险</strong></td>
+<td>市场价格波动导致亏损</td>
+<td>2008年金融危机</td>
+</tr>
+<tr>
+<td><strong>流动性风险</strong></td>
+<td>无法以合理价格买卖</td>
+<td>小盘股闪崩</td>
+</tr>
+<tr>
+<td><strong>模型风险</strong></td>
+<td>策略模型失效</td>
+<td>2021年Archegos爆仓</td>
+</tr>
+<tr>
+<td><strong>操作风险</strong></td>
+<td>系统或人为错误</td>
+<td>Knight Capital损失4.6亿美元</td>
+</tr>
+<tr>
+<td><strong>黑天鹅风险</strong></td>
+<td>极端罕见事件</td>
+<td>COVID-19疫情</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="二、仓位管理"><a href="#二、仓位管理" class="headerlink" title="二、仓位管理"></a>二、仓位管理</h2><h3 id="2-1-核心原则"><a href="#2-1-核心原则" class="headerlink" title="2.1 核心原则"></a>2.1 核心原则</h3><blockquote>
+<p><strong>永远不要All In！</strong> 单笔交易的风险应控制在总资金的2-5%。</p>
+</blockquote>
+<h3 id="2-2-凯利公式（Kelly-Criterion）"><a href="#2-2-凯利公式（Kelly-Criterion）" class="headerlink" title="2.2 凯利公式（Kelly Criterion）"></a>2.2 凯利公式（Kelly Criterion）</h3><p><strong>公式</strong>:</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs makefile">f = (p * b - q) / b<br><br><span class="hljs-section">其中:</span><br>f = 最优仓位比例<br>p = 胜率<br>q = 败率 = 1 - p<br>b = 盈亏比（平均盈利/平均亏损）<br></code></pre></td></tr></table></figure>
+
+<p><strong>Python实现</strong>:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">kelly_criterion</span>(<span class="hljs-params">win_rate, profit_loss_ratio</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    计算凯利公式最优仓位</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    参数:</span><br><span class="hljs-string">        win_rate: 胜率 (0-1)</span><br><span class="hljs-string">        profit_loss_ratio: 盈亏比</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    返回:</span><br><span class="hljs-string">        最优仓位比例 (0-1)</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    loss_rate = <span class="hljs-number">1</span> - win_rate<br>    kelly = (win_rate * profit_loss_ratio - loss_rate) / profit_loss_ratio<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">max</span>(<span class="hljs-number">0</span>, <span class="hljs-built_in">min</span>(kelly, <span class="hljs-number">1</span>))  <span class="hljs-comment"># 限制在0-1之间</span><br><br><span class="hljs-comment"># 示例</span><br>win_rate = <span class="hljs-number">0.55</span>      <span class="hljs-comment"># 胜率55%</span><br>pl_ratio = <span class="hljs-number">2.0</span>       <span class="hljs-comment"># 盈亏比2:1</span><br><br>kelly = kelly_criterion(win_rate, pl_ratio)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;凯利最优仓位: <span class="hljs-subst">&#123;kelly:<span class="hljs-number">.2</span>%&#125;</span>&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;建议半凯利仓位: <span class="hljs-subst">&#123;kelly/<span class="hljs-number">2</span>:<span class="hljs-number">.2</span>%&#125;</span>&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;建议四分之一凯利仓位: <span class="hljs-subst">&#123;kelly/<span class="hljs-number">4</span>:<span class="hljs-number">.2</span>%&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p><strong>输出</strong>:</p>
+<figure class="highlight erlang-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs erlang-repl">凯利最优仓位: <span class="hljs-number">32.50</span><span class="hljs-comment">%</span><br>建议半凯利仓位: <span class="hljs-number">16.25</span><span class="hljs-comment">%</span><br>建议四分之一凯利仓位: <span class="hljs-number">8.13</span><span class="hljs-comment">%</span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>⚠️ <strong>注意</strong>: 实际交易中建议使用”半凯利”或”四分之一凯利”，降低风险。</p>
+</blockquote>
+<h3 id="2-3-固定比例法"><a href="#2-3-固定比例法" class="headerlink" title="2.3 固定比例法"></a>2.3 固定比例法</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">fixed_fraction_position_size</span>(<span class="hljs-params">account_value, risk_per_trade, stop_loss_pct</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    固定比例仓位管理</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    参数:</span><br><span class="hljs-string">        account_value: 账户总价值</span><br><span class="hljs-string">        risk_per_trade: 每笔交易风险比例 (如 0.02 = 2%)</span><br><span class="hljs-string">        stop_loss_pct: 止损比例 (如 0.05 = 5%)</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    risk_amount = account_value * risk_per_trade<br>    position_size = risk_amount / stop_loss_pct<br>    <span class="hljs-keyword">return</span> position_size<br><br><span class="hljs-comment"># 示例</span><br>account = <span class="hljs-number">100000</span>      <span class="hljs-comment"># 10万账户</span><br>risk_pct = <span class="hljs-number">0.02</span>       <span class="hljs-comment"># 每笔风险2%</span><br>stop_loss = <span class="hljs-number">0.05</span>      <span class="hljs-comment"># 止损5%</span><br><br>position = fixed_fraction_position_size(account, risk_pct, stop_loss)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;建议仓位: ¥<span class="hljs-subst">&#123;position:,<span class="hljs-number">.0</span>f&#125;</span>&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;实际风险: ¥<span class="hljs-subst">&#123;position * stop_loss:,<span class="hljs-number">.0</span>f&#125;</span> (<span class="hljs-subst">&#123;risk_pct:<span class="hljs-number">.0</span>%&#125;</span>)&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-4-仓位管理策略对比"><a href="#2-4-仓位管理策略对比" class="headerlink" title="2.4 仓位管理策略对比"></a>2.4 仓位管理策略对比</h3><table>
+<thead>
+<tr>
+<th>策略</th>
+<th>公式</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>凯利公式</strong></td>
+<td>f&#x3D;(pb-q)&#x2F;b</td>
+<td>理论上最优增长</td>
+<td>对参数敏感</td>
+</tr>
+<tr>
+<td><strong>固定比例</strong></td>
+<td>仓位&#x3D;风险金额&#x2F;止损</td>
+<td>简单、控制风险</td>
+<td>未考虑胜率</td>
+</tr>
+<tr>
+<td><strong>固定金额</strong></td>
+<td>每笔固定金额</td>
+<td>最简单</td>
+<td>未考虑账户变化</td>
+</tr>
+<tr>
+<td><strong>金字塔加仓</strong></td>
+<td>盈利后加仓</td>
+<td>趋势中收益大</td>
+<td>反转时亏损大</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="三、止损策略"><a href="#三、止损策略" class="headerlink" title="三、止损策略"></a>三、止损策略</h2><h3 id="3-1-止损类型"><a href="#3-1-止损类型" class="headerlink" title="3.1 止损类型"></a>3.1 止损类型</h3><table>
+<thead>
+<tr>
+<th>止损类型</th>
+<th>原理</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>固定比例止损</strong></td>
+<td>亏损达X%止损</td>
+<td>简单明了</td>
+</tr>
+<tr>
+<td><strong>移动止损</strong></td>
+<td>盈利后回撤X%止损</td>
+<td>保护利润</td>
+</tr>
+<tr>
+<td><strong>时间止损</strong></td>
+<td>持仓N天后无条件平仓</td>
+<td>避免长期套牢</td>
+</tr>
+<tr>
+<td><strong>波动率止损</strong></td>
+<td>基于ATR设置止损</td>
+<td>适应市场波动</td>
+</tr>
+<tr>
+<td><strong>技术止损</strong></td>
+<td>跌破支撑位止损</td>
+<td>技术分析策略</td>
+</tr>
+</tbody></table>
+<h3 id="3-2-移动止损示例"><a href="#3-2-移动止损示例" class="headerlink" title="3.2 移动止损示例"></a>3.2 移动止损示例</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">TrailingStop</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;移动止损类&quot;&quot;&quot;</span><br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, trailing_pct=<span class="hljs-number">0.1</span></span>):<br>        <span class="hljs-variable language_">self</span>.trailing_pct = trailing_pct<br>        <span class="hljs-variable language_">self</span>.highest_price = <span class="hljs-literal">None</span><br>        <span class="hljs-variable language_">self</span>.stop_price = <span class="hljs-literal">None</span><br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">update</span>(<span class="hljs-params">self, current_price</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;更新止损价格&quot;&quot;&quot;</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-variable language_">self</span>.highest_price <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>            <span class="hljs-variable language_">self</span>.highest_price = current_price<br>            <span class="hljs-variable language_">self</span>.stop_price = current_price * (<span class="hljs-number">1</span> - <span class="hljs-variable language_">self</span>.trailing_pct)<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>        <br>        <span class="hljs-comment"># 更新最高价</span><br>        <span class="hljs-keyword">if</span> current_price &gt; <span class="hljs-variable language_">self</span>.highest_price:<br>            <span class="hljs-variable language_">self</span>.highest_price = current_price<br>            <span class="hljs-variable language_">self</span>.stop_price = current_price * (<span class="hljs-number">1</span> - <span class="hljs-variable language_">self</span>.trailing_pct)<br>        <br>        <span class="hljs-comment"># 检查是否触发止损</span><br>        <span class="hljs-keyword">return</span> current_price &lt;= <span class="hljs-variable language_">self</span>.stop_price<br><br><span class="hljs-comment"># 使用示例</span><br>trailing = TrailingStop(trailing_pct=<span class="hljs-number">0.1</span>)  <span class="hljs-comment"># 10%移动止损</span><br><br>prices = [<span class="hljs-number">100</span>, <span class="hljs-number">105</span>, <span class="hljs-number">110</span>, <span class="hljs-number">108</span>, <span class="hljs-number">115</span>, <span class="hljs-number">112</span>, <span class="hljs-number">103</span>, <span class="hljs-number">100</span>]<br><span class="hljs-keyword">for</span> price <span class="hljs-keyword">in</span> prices:<br>    triggered = trailing.update(price)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;价格: <span class="hljs-subst">&#123;price&#125;</span>, 最高价: <span class="hljs-subst">&#123;trailing.highest_price&#125;</span>, &quot;</span><br>          <span class="hljs-string">f&quot;止损价: <span class="hljs-subst">&#123;trailing.stop_price:<span class="hljs-number">.1</span>f&#125;</span>, 触发: <span class="hljs-subst">&#123;triggered&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-3-ATR止损"><a href="#3-3-ATR止损" class="headerlink" title="3.3 ATR止损"></a>3.3 ATR止损</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_atr</span>(<span class="hljs-params">high, low, close, period=<span class="hljs-number">14</span></span>):<br>    <span class="hljs-string">&quot;&quot;&quot;计算ATR（平均真实波幅）&quot;&quot;&quot;</span><br>    tr1 = high - low<br>    tr2 = <span class="hljs-built_in">abs</span>(high - close.shift(<span class="hljs-number">1</span>))<br>    tr3 = <span class="hljs-built_in">abs</span>(low - close.shift(<span class="hljs-number">1</span>))<br>    tr = pd.concat([tr1, tr2, tr3], axis=<span class="hljs-number">1</span>).<span class="hljs-built_in">max</span>(axis=<span class="hljs-number">1</span>)<br>    atr = tr.rolling(window=period).mean()<br>    <span class="hljs-keyword">return</span> atr<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">atr_stop_loss</span>(<span class="hljs-params">entry_price, atr_value, multiplier=<span class="hljs-number">2</span></span>):<br>    <span class="hljs-string">&quot;&quot;&quot;基于ATR的止损&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">return</span> entry_price - multiplier * atr_value<br><br><span class="hljs-comment"># 示例</span><br>data = pd.DataFrame(&#123;<br>    <span class="hljs-string">&#x27;high&#x27;</span>: [<span class="hljs-number">105</span>, <span class="hljs-number">108</span>, <span class="hljs-number">110</span>, <span class="hljs-number">107</span>, <span class="hljs-number">112</span>],<br>    <span class="hljs-string">&#x27;low&#x27;</span>: [<span class="hljs-number">98</span>, <span class="hljs-number">100</span>, <span class="hljs-number">102</span>, <span class="hljs-number">99</span>, <span class="hljs-number">105</span>],<br>    <span class="hljs-string">&#x27;close&#x27;</span>: [<span class="hljs-number">102</span>, <span class="hljs-number">106</span>, <span class="hljs-number">108</span>, <span class="hljs-number">105</span>, <span class="hljs-number">110</span>]<br>&#125;)<br><br>data[<span class="hljs-string">&#x27;ATR&#x27;</span>] = calculate_atr(data[<span class="hljs-string">&#x27;high&#x27;</span>], data[<span class="hljs-string">&#x27;low&#x27;</span>], data[<span class="hljs-string">&#x27;close&#x27;</span>])<br>stop = atr_stop_loss(<span class="hljs-number">110</span>, data[<span class="hljs-string">&#x27;ATR&#x27;</span>].iloc[-<span class="hljs-number">1</span>], multiplier=<span class="hljs-number">2</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;ATR止损价: <span class="hljs-subst">&#123;stop:<span class="hljs-number">.2</span>f&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="四、风险分散"><a href="#四、风险分散" class="headerlink" title="四、风险分散"></a>四、风险分散</h2><h3 id="4-1-分散化原则"><a href="#4-1-分散化原则" class="headerlink" title="4.1 分散化原则"></a>4.1 分散化原则</h3><blockquote>
+<p><strong>不要把所有鸡蛋放在一个篮子里</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>分散维度</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>品种分散</strong></td>
+<td>不同资产类别</td>
+<td>股票+债券+商品</td>
+</tr>
+<tr>
+<td><strong>策略分散</strong></td>
+<td>不同逻辑的策略</td>
+<td>趋势+均值回归+因子</td>
+</tr>
+<tr>
+<td><strong>时间分散</strong></td>
+<td>不同时间周期</td>
+<td>日线+小时线</td>
+</tr>
+<tr>
+<td><strong>地域分散</strong></td>
+<td>不同市场</td>
+<td>A股+美股+港股</td>
+</tr>
+</tbody></table>
+<h3 id="4-2-策略组合示例"><a href="#4-2-策略组合示例" class="headerlink" title="4.2 策略组合示例"></a>4.2 策略组合示例</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Portfolio</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;策略组合类&quot;&quot;&quot;</span><br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-variable language_">self</span>.strategies = &#123;&#125;<br>        <span class="hljs-variable language_">self</span>.allocations = &#123;&#125;<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">add_strategy</span>(<span class="hljs-params">self, name, strategy, allocation</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;添加策略&quot;&quot;&quot;</span><br>        <span class="hljs-variable language_">self</span>.strategies[name] = strategy<br>        <span class="hljs-variable language_">self</span>.allocations[name] = allocation<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">get_combined_signal</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;获取组合信号&quot;&quot;&quot;</span><br>        combined = <span class="hljs-number">0</span><br>        <span class="hljs-keyword">for</span> name, strategy <span class="hljs-keyword">in</span> <span class="hljs-variable language_">self</span>.strategies.items():<br>            signal = strategy.get_signal()<br>            combined += signal * <span class="hljs-variable language_">self</span>.allocations[name]<br>        <span class="hljs-keyword">return</span> combined<br><br><span class="hljs-comment"># 构建组合</span><br>portfolio = Portfolio()<br>portfolio.add_strategy(<span class="hljs-string">&#x27;trend&#x27;</span>, TrendStrategy(), <span class="hljs-number">0.4</span>)<br>portfolio.add_strategy(<span class="hljs-string">&#x27;mean_reversion&#x27;</span>, MeanReversionStrategy(), <span class="hljs-number">0.3</span>)<br>portfolio.add_strategy(<span class="hljs-string">&#x27;factor&#x27;</span>, FactorStrategy(), <span class="hljs-number">0.3</span>)<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="五、压力测试"><a href="#五、压力测试" class="headerlink" title="五、压力测试"></a>五、压力测试</h2><h3 id="5-1-什么是压力测试"><a href="#5-1-什么是压力测试" class="headerlink" title="5.1 什么是压力测试"></a>5.1 什么是压力测试</h3><p>模拟极端市场情况，评估策略在最坏情况下的表现。</p>
+<h3 id="5-2-压力测试场景"><a href="#5-2-压力测试场景" class="headerlink" title="5.2 压力测试场景"></a>5.2 压力测试场景</h3><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>描述</th>
+<th>测试方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>2008年金融危机</strong></td>
+<td>市场下跌50%</td>
+<td>使用2008年数据回测</td>
+</tr>
+<tr>
+<td><strong>闪崩（Flash Crash）</strong></td>
+<td>短时间内暴跌</td>
+<td>模拟日内暴跌10%</td>
+</tr>
+<tr>
+<td><strong>流动性枯竭</strong></td>
+<td>买卖价差扩大10倍</td>
+<td>增加滑点参数</td>
+</tr>
+<tr>
+<td><strong>连续亏损</strong></td>
+<td>连续10笔亏损</td>
+<td>模拟最差交易序列</td>
+</tr>
+<tr>
+<td><strong>黑天鹅事件</strong></td>
+<td>不可预测的极端事件</td>
+<td>蒙特卡洛模拟</td>
+</tr>
+</tbody></table>
+<h3 id="5-3-蒙特卡洛模拟"><a href="#5-3-蒙特卡洛模拟" class="headerlink" title="5.3 蒙特卡洛模拟"></a>5.3 蒙特卡洛模拟</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">monte_carlo_simulation</span>(<span class="hljs-params">returns, n_simulations=<span class="hljs-number">1000</span>, n_days=<span class="hljs-number">252</span></span>):<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    蒙特卡洛模拟</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    参数:</span><br><span class="hljs-string">        returns: 历史收益率序列</span><br><span class="hljs-string">        n_simulations: 模拟次数</span><br><span class="hljs-string">        n_days: 模拟天数</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    mean_return = returns.mean()<br>    std_return = returns.std()<br>    <br>    <span class="hljs-comment"># 生成随机路径</span><br>    simulations = np.random.normal(mean_return, std_return, <br>                                   (n_simulations, n_days))<br>    <br>    <span class="hljs-comment"># 计算累积收益</span><br>    cumulative_returns = np.cumprod(<span class="hljs-number">1</span> + simulations, axis=<span class="hljs-number">1</span>) - <span class="hljs-number">1</span><br>    <br>    <span class="hljs-keyword">return</span> cumulative_returns<br><br><span class="hljs-comment"># 示例</span><br>np.random.seed(<span class="hljs-number">42</span>)<br>returns = pd.Series(np.random.normal(<span class="hljs-number">0.001</span>, <span class="hljs-number">0.02</span>, <span class="hljs-number">252</span>))  <span class="hljs-comment"># 模拟日收益率</span><br><br>simulations = monte_carlo_simulation(returns, n_simulations=<span class="hljs-number">1000</span>)<br><br><span class="hljs-comment"># 分析结果</span><br>final_returns = simulations[:, -<span class="hljs-number">1</span>]<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;预期年化收益: <span class="hljs-subst">&#123;final_returns.mean():<span class="hljs-number">.2</span>%&#125;</span>&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;最坏情况（1%分位）: <span class="hljs-subst">&#123;np.percentile(final_returns, <span class="hljs-number">1</span>):<span class="hljs-number">.2</span>%&#125;</span>&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;最好情况（99%分位）: <span class="hljs-subst">&#123;np.percentile(final_returns, <span class="hljs-number">99</span>):<span class="hljs-number">.2</span>%&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<h3 id="5-4-压力测试报告模板"><a href="#5-4-压力测试报告模板" class="headerlink" title="5.4 压力测试报告模板"></a>5.4 压力测试报告模板</h3><figure class="highlight nestedtext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs nestedtext"><span class="hljs-attribute">压力测试报告</span><br><span class="hljs-attribute">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span><br><span class="hljs-attribute">策略名称</span><span class="hljs-punctuation">:</span> <span class="hljs-string">[策略名]</span><br><span class="hljs-attribute">测试日期</span><span class="hljs-punctuation">:</span> <span class="hljs-string">[日期]</span><br><br><span class="hljs-attribute">正常情况表现</span><span class="hljs-punctuation">:</span><br>  <span class="hljs-attribute">年化收益</span><span class="hljs-punctuation">:</span> <span class="hljs-string">XX%</span><br>  <span class="hljs-attribute">最大回撤</span><span class="hljs-punctuation">:</span> <span class="hljs-string">XX%</span><br>  <span class="hljs-attribute">夏普比率</span><span class="hljs-punctuation">:</span> <span class="hljs-string">X.X</span><br><br><span class="hljs-attribute">压力测试表现</span><span class="hljs-punctuation">:</span><br>  <span class="hljs-attribute">2008年场景</span><span class="hljs-punctuation">:</span><br>    <span class="hljs-attribute">年化收益</span><span class="hljs-punctuation">:</span> <span class="hljs-string">XX%</span><br>    <span class="hljs-attribute">最大回撤</span><span class="hljs-punctuation">:</span> <span class="hljs-string">XX%</span><br>    <br>  <span class="hljs-attribute">闪崩场景</span><span class="hljs-punctuation">:</span><br>    <span class="hljs-attribute">单日亏损</span><span class="hljs-punctuation">:</span> <span class="hljs-string">XX%</span><br>    <span class="hljs-attribute">恢复时间</span><span class="hljs-punctuation">:</span> <span class="hljs-string">XX天</span><br>    <br>  <span class="hljs-attribute">流动性枯竭</span><span class="hljs-punctuation">:</span><br>    <span class="hljs-attribute">滑点影响</span><span class="hljs-punctuation">:</span> <span class="hljs-string">XX%</span><br>    <br>  <span class="hljs-attribute">连续亏损</span><span class="hljs-punctuation">:</span><br>    <span class="hljs-attribute">最大连续亏损次数</span><span class="hljs-punctuation">:</span> <span class="hljs-string">XX</span><br>    <span class="hljs-attribute">最大连续亏损金额</span><span class="hljs-punctuation">:</span> <span class="hljs-string">XX%</span><br><br><span class="hljs-attribute">结论</span><span class="hljs-punctuation">:</span> <span class="hljs-string">[策略是否通过压力测试]</span><br>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="六、下一篇预告"><a href="#六、下一篇预告" class="headerlink" title="六、下一篇预告"></a>六、下一篇预告</h2><p>在下一篇文章中，我们将介绍<strong>回测与过拟合</strong>，帮助你避免量化交易中最常见的陷阱。</p>
+<blockquote>
+<p>📌 <strong>下一篇</strong>: <a href="09-backtesting-and-overfitting.md">回测与过拟合</a></p>
+</blockquote>
+<hr>
+<blockquote>
+<p><strong>系列导航</strong>:</p>
+<ul>
+<li><a href="07-data-sources.md">上一篇: 数据源与数据类型</a></li>
+<li><a href="09-backtesting-and-overfitting.md">下一篇: 回测与过拟合</a></li>
+</ul>
+</blockquote>
+<hr>
+<blockquote>
+<p><strong>免责声明</strong>: 本文仅供学习交流，不构成投资建议。量化交易有风险，入市需谨慎。</p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Quantitative-Trading/" class="category-chain-item">Quantitative Trading</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93/" class="print-no-link">#量化交易</a>
+      
+        <a href="/tags/%E9%A3%8E%E9%99%A9%E7%AE%A1%E7%90%86/" class="print-no-link">#风险管理</a>
+      
+        <a href="/tags/%E4%BB%93%E4%BD%8D%E7%AE%A1%E7%90%86/" class="print-no-link">#仓位管理</a>
+      
+        <a href="/tags/%E6%AD%A2%E6%8D%9F/" class="print-no-link">#止损</a>
+      
+        <a href="/tags/%E5%87%AF%E5%88%A9%E5%85%AC%E5%BC%8F/" class="print-no-link">#凯利公式</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>量化交易的风险管理——量化交易入门系列（八）</div>
+      <div>https://littlebabyq.github.io/2026/05/16/Quantitative Trading/08-risk-management/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>BabyQ</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年5月16日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/05/16/Quantitative%20Trading/07-data-sources/" title="量化交易的数据源与数据类型——量化交易入门系列（七）">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">量化交易的数据源与数据类型——量化交易入门系列（七）</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/05/16/Quantitative%20Trading/10-learning-path/" title="量化交易入门学习路径——量化交易入门系列（十）">
+                        <span class="hidden-mobile">量化交易入门学习路径——量化交易入门系列（十）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

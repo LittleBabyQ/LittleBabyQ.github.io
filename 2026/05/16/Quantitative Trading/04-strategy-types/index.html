@@ -1,0 +1,1259 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="BabyQ">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="系列: 量化交易入门作者: [BabyQ]日期: 2026-05-16标签: #量化策略 #趋势跟踪 #均值回归 #因子投资 #统计套利   目录 策略分类框架 趋势跟踪策略 均值回归策略 因子投资策略 统计套利策略 事件驱动策略 机器学习策略 策略选择建议 下一篇预告   一、策略分类框架1.1 按交易频率分类123456789101112131415┌────────────────────">
+<meta property="og:type" content="article">
+<meta property="og:title" content="量化策略的主要类型——量化交易入门系列（四）">
+<meta property="og:url" content="https://littlebabyq.github.io/2026/05/16/Quantitative%20Trading/04-strategy-types/index.html">
+<meta property="og:site_name" content="BabyQ Blog">
+<meta property="og:description" content="系列: 量化交易入门作者: [BabyQ]日期: 2026-05-16标签: #量化策略 #趋势跟踪 #均值回归 #因子投资 #统计套利   目录 策略分类框架 趋势跟踪策略 均值回归策略 因子投资策略 统计套利策略 事件驱动策略 机器学习策略 策略选择建议 下一篇预告   一、策略分类框架1.1 按交易频率分类123456789101112131415┌────────────────────">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-05-16T02:00:00.000Z">
+<meta property="article:modified_time" content="2026-05-16T07:53:54.198Z">
+<meta property="article:author" content="BabyQ">
+<meta property="article:tag" content="因子投资">
+<meta property="article:tag" content="均值回归">
+<meta property="article:tag" content="统计套利">
+<meta property="article:tag" content="趋势跟踪">
+<meta property="article:tag" content="量化策略">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>量化策略的主要类型——量化交易入门系列（四） - BabyQ Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"littlebabyq.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>BabyQ&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/bg2.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="量化策略的主要类型——量化交易入门系列（四）"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-05-16 10:00" pubdate>
+          2026年5月16日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          32 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">量化策略的主要类型——量化交易入门系列（四）</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <blockquote>
+<p><strong>系列</strong>: 量化交易入门<br><strong>作者</strong>: [BabyQ]<br><strong>日期</strong>: 2026-05-16<br><strong>标签</strong>: #量化策略 #趋势跟踪 #均值回归 #因子投资 #统计套利</p>
+</blockquote>
+<hr>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ol>
+<li><a href="#%E4%B8%80%E7%AD%96%E7%95%A5%E5%88%86%E7%B1%BB%E6%A1%86%E6%9E%B6">策略分类框架</a></li>
+<li><a href="#%E4%BA%8C%E8%B6%8B%E5%8A%BF%E8%B7%9F%E8%B8%AA%E7%AD%96%E7%95%A5">趋势跟踪策略</a></li>
+<li><a href="#%E4%B8%89%E5%9D%87%E5%80%BC%E5%9B%9E%E5%BD%92%E7%AD%96%E7%95%A5">均值回归策略</a></li>
+<li><a href="#%E5%9B%9B%E5%9B%A0%E5%AD%90%E6%8A%95%E8%B5%84%E7%AD%96%E7%95%A5">因子投资策略</a></li>
+<li><a href="#%E4%BA%94%E7%BB%9F%E8%AE%A1%E5%A5%97%E5%88%A9%E7%AD%96%E7%95%A5">统计套利策略</a></li>
+<li><a href="#%E5%85%AD%E4%BA%8B%E4%BB%B6%E9%A9%B1%E5%8A%A8%E7%AD%96%E7%95%A5">事件驱动策略</a></li>
+<li><a href="#%E4%B8%83%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AD%96%E7%95%A5">机器学习策略</a></li>
+<li><a href="#%E5%85%AB%E7%AD%96%E7%95%A5%E9%80%89%E6%8B%A9%E5%BB%BA%E8%AE%AE">策略选择建议</a></li>
+<li><a href="#%E4%B9%9D%E4%B8%8B%E4%B8%80%E7%AF%87%E9%A2%84%E5%91%8A">下一篇预告</a></li>
+</ol>
+<hr>
+<h2 id="一、策略分类框架"><a href="#一、策略分类框架" class="headerlink" title="一、策略分类框架"></a>一、策略分类框架</h2><h3 id="1-1-按交易频率分类"><a href="#1-1-按交易频率分类" class="headerlink" title="1.1 按交易频率分类"></a>1.1 按交易频率分类</h3><figure class="highlight nestedtext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs nestedtext"><span class="hljs-attribute">┌─────────────────────────────────────────────────────────┐</span><br><span class="hljs-attribute">│                    交易频率谱系                          │</span><br><span class="hljs-attribute">├─────────────────────────────────────────────────────────┤</span><br><span class="hljs-attribute">│                                                         │</span><br><span class="hljs-attribute">│  高频交易 (HFT)     │  中频交易        │  低频交易      │</span><br><span class="hljs-attribute">│  &lt; 1秒              │  分钟 ~ 天       │  天 ~ 月       │</span><br><span class="hljs-attribute">│                     │                  │                │</span><br><span class="hljs-attribute">│  • 做市策略         │  • 统计套利      │  • 基本面量化  │</span><br><span class="hljs-attribute">│  • 延迟套利         │  • 趋势跟踪      │  • 因子投资    │</span><br><span class="hljs-attribute">│  • 订单流分析       │  • 均值回归      │  • 事件驱动    │</span><br><span class="hljs-attribute">│                     │                  │                │</span><br><span class="hljs-attribute">│  技术要求</span><span class="hljs-punctuation">:</span> <span class="hljs-string">极高      │  技术要求: 中等   │  技术要求: 较低 │</span><br><span class="hljs-attribute">│  资金要求</span><span class="hljs-punctuation">:</span> <span class="hljs-string">高        │  资金要求: 中等   │  资金要求: 较低 │</span><br>│                     │                  │                │<br>└─────────────────────────────────────────────────────────┘<br></code></pre></td></tr></table></figure>
+
+<h3 id="1-2-按策略逻辑分类"><a href="#1-2-按策略逻辑分类" class="headerlink" title="1.2 按策略逻辑分类"></a>1.2 按策略逻辑分类</h3><p>本文重点介绍六大类策略：</p>
+<table>
+<thead>
+<tr>
+<th>策略类型</th>
+<th>核心逻辑</th>
+<th>频率</th>
+<th>难度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>趋势跟踪</strong></td>
+<td>顺势而为</td>
+<td>中频</td>
+<td>⭐⭐</td>
+</tr>
+<tr>
+<td><strong>均值回归</strong></td>
+<td>价格回归均值</td>
+<td>中频</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td><strong>因子投资</strong></td>
+<td>系统性配置因子</td>
+<td>低频</td>
+<td>⭐⭐</td>
+</tr>
+<tr>
+<td><strong>统计套利</strong></td>
+<td>利用统计关系</td>
+<td>中高频</td>
+<td>⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td><strong>事件驱动</strong></td>
+<td>利用事件定价偏差</td>
+<td>低频</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td><strong>机器学习</strong></td>
+<td>数据驱动预测</td>
+<td>全频</td>
+<td>⭐⭐⭐⭐⭐</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="二、趋势跟踪策略"><a href="#二、趋势跟踪策略" class="headerlink" title="二、趋势跟踪策略"></a>二、趋势跟踪策略</h2><h3 id="2-1-核心思想"><a href="#2-1-核心思想" class="headerlink" title="2.1 核心思想"></a>2.1 核心思想</h3><p><strong>“顺势而为”</strong> —— 买入上涨趋势中的资产，卖出下跌趋势中的资产。</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs livescript">价格走势:<br><br>上升趋势          下降趋势<br>    /<span class="hljs-string">\</span>                <span class="hljs-string">\\</span><br>   /  <span class="hljs-string">\</span>                <span class="hljs-string">\\</span><br>  /    <span class="hljs-string">\</span>                <span class="hljs-string">\\</span><br> /      <span class="hljs-string">\____</span>            <span class="hljs-string">\\</span><br>             买入点      卖出点<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-2-常用技术指标"><a href="#2-2-常用技术指标" class="headerlink" title="2.2 常用技术指标"></a>2.2 常用技术指标</h3><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>原理</th>
+<th>信号</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>移动平均线（MA）</strong></td>
+<td>平滑价格，识别趋势</td>
+<td>金叉买入，死叉卖出</td>
+</tr>
+<tr>
+<td><strong>布林带（Bollinger Bands）</strong></td>
+<td>价格通道</td>
+<td>突破上轨买入，突破下轨卖出</td>
+</tr>
+<tr>
+<td><strong>MACD</strong></td>
+<td>快慢均线差</td>
+<td>MACD上穿信号线买入</td>
+</tr>
+<tr>
+<td><strong>动量（Momentum）</strong></td>
+<td>价格变化速度</td>
+<td>动量为正买入</td>
+</tr>
+</tbody></table>
+<h3 id="2-3-双均线策略示例"><a href="#2-3-双均线策略示例" class="headerlink" title="2.3 双均线策略示例"></a>2.3 双均线策略示例</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 双均线策略伪代码</span><br>short_ma = 计算移动平均线(收盘价, 周期=<span class="hljs-number">10</span>)  <span class="hljs-comment"># 短期均线</span><br>long_ma = 计算移动平均线(收盘价, 周期=<span class="hljs-number">30</span>)   <span class="hljs-comment"># 长期均线</span><br><br><span class="hljs-comment"># 买入信号：短期均线上穿长期均线（金叉）</span><br><span class="hljs-keyword">if</span> 短期均线 &gt; 长期均线 <span class="hljs-keyword">and</span> 短期均线[昨日] &lt;= 长期均线[昨日]:<br>    买入信号 = <span class="hljs-literal">True</span><br><br><span class="hljs-comment"># 卖出信号：短期均线下穿长期均线（死叉）</span><br><span class="hljs-keyword">elif</span> 短期均线 &lt; 长期均线 <span class="hljs-keyword">and</span> 短期均线[昨日] &gt;= 长期均线[昨日]:<br>    卖出信号 = <span class="hljs-literal">True</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="2-4-优缺点"><a href="#2-4-优缺点" class="headerlink" title="2.4 优缺点"></a>2.4 优缺点</h3><table>
+<thead>
+<tr>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>逻辑简单，易于理解</td>
+<td>震荡市中频繁止损</td>
+</tr>
+<tr>
+<td>抓住大趋势，收益高</td>
+<td>滞后性，错过最佳买卖点</td>
+</tr>
+<tr>
+<td>适用多种市场</td>
+<td>假突破导致亏损</td>
+</tr>
+</tbody></table>
+<h3 id="2-5-代表基金"><a href="#2-5-代表基金" class="headerlink" title="2.5 代表基金"></a>2.5 代表基金</h3><ul>
+<li><strong>Winton Capital</strong>: 趋势跟踪CTA</li>
+<li><strong>Man AHL</strong>: 多元化趋势跟踪</li>
+<li><strong>AQR</strong>: 趋势因子投资</li>
+</ul>
+<hr>
+<h2 id="三、均值回归策略"><a href="#三、均值回归策略" class="headerlink" title="三、均值回归策略"></a>三、均值回归策略</h2><h3 id="3-1-核心思想"><a href="#3-1-核心思想" class="headerlink" title="3.1 核心思想"></a>3.1 核心思想</h3><p><strong>“价格围绕均值波动，极端偏离后会回归”</strong>。</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs livescript">价格走势:<br><br>    上限 ─────────────── 卖出<br>         <br>    均值 ─────────────── 中性<br>         <br>    下限 ─────────────── 买入<br>         <br>         买入    卖出<br>          ↓       ↑<br>    ─────<span class="hljs-regexp">/\────/</span><span class="hljs-string">\─────</span><br>        /  <span class="hljs-string">\</span>  /  <span class="hljs-string">\</span><br>       /    <span class="hljs-string">\/</span>    <span class="hljs-string">\</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="3-2-常用方法"><a href="#3-2-常用方法" class="headerlink" title="3.2 常用方法"></a>3.2 常用方法</h3><h4 id="配对交易（Pairs-Trading）"><a href="#配对交易（Pairs-Trading）" class="headerlink" title="配对交易（Pairs Trading）"></a>配对交易（Pairs Trading）</h4><p><strong>原理</strong>: 找到两只相关性高的股票，当价差异常扩大时，做空高价股、做多低价股。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 配对交易伪代码</span><br>spread = 股票A价格 - β * 股票B价格<br>z_score = (spread - 均值) / 标准差<br><br><span class="hljs-keyword">if</span> z_score &gt; <span class="hljs-number">2.0</span>:      <span class="hljs-comment"># 价差过大，预期回归</span><br>    做空A, 做多B<br>    <br><span class="hljs-keyword">elif</span> z_score &lt; -<span class="hljs-number">2.0</span>:   <span class="hljs-comment"># 价差过小，预期回归</span><br>    做多A, 做空B<br>    <br><span class="hljs-keyword">elif</span> <span class="hljs-built_in">abs</span>(z_score) &lt; <span class="hljs-number">0.5</span>:  <span class="hljs-comment"># 价差回归，平仓</span><br>    平仓<br></code></pre></td></tr></table></figure>
+
+<h4 id="RSI超买超卖"><a href="#RSI超买超卖" class="headerlink" title="RSI超买超卖"></a>RSI超买超卖</h4><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">RSI</span> &gt; <span class="hljs-number">70</span>: 超买 → 卖出信号<br><span class="hljs-attribute">RSI</span> &lt; <span class="hljs-number">30</span>: 超卖 → 买入信号<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-3-优缺点"><a href="#3-3-优缺点" class="headerlink" title="3.3 优缺点"></a>3.3 优缺点</h3><table>
+<thead>
+<tr>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>高胜率</td>
+<td>遇到趋势时亏损大</td>
+</tr>
+<tr>
+<td>逻辑清晰</td>
+<td>需要准确估计均值</td>
+</tr>
+<tr>
+<td>适合震荡市</td>
+<td>黑天鹅事件导致持续偏离</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="四、因子投资策略"><a href="#四、因子投资策略" class="headerlink" title="四、因子投资策略"></a>四、因子投资策略</h2><h3 id="4-1-核心思想"><a href="#4-1-核心思想" class="headerlink" title="4.1 核心思想"></a>4.1 核心思想</h3><p><strong>识别能解释资产收益差异的因子，系统性配置</strong>。</p>
+<h3 id="4-2-经典因子（Fama-French-五因子）"><a href="#4-2-经典因子（Fama-French-五因子）" class="headerlink" title="4.2 经典因子（Fama-French 五因子）"></a>4.2 经典因子（Fama-French 五因子）</h3><table>
+<thead>
+<tr>
+<th>因子</th>
+<th>英文</th>
+<th>解释</th>
+<th>做多</th>
+<th>做空</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>市值因子</strong></td>
+<td>SMB</td>
+<td>小市值效应</td>
+<td>小市值股票</td>
+<td>大市值股票</td>
+</tr>
+<tr>
+<td><strong>价值因子</strong></td>
+<td>HML</td>
+<td>低市净率效应</td>
+<td>低PB股票</td>
+<td>高PB股票</td>
+</tr>
+<tr>
+<td><strong>动量因子</strong></td>
+<td>MOM</td>
+<td>赢家继续赢</td>
+<td>过去一年赢家</td>
+<td>过去一年输家</td>
+</tr>
+<tr>
+<td><strong>质量因子</strong></td>
+<td>RMW</td>
+<td>高盈利质量</td>
+<td>高ROE股票</td>
+<td>低ROE股票</td>
+</tr>
+<tr>
+<td><strong>投资因子</strong></td>
+<td>CMA</td>
+<td>保守投资效应</td>
+<td>低投资增长</td>
+<td>高投资增长</td>
+</tr>
+</tbody></table>
+<h3 id="4-3-因子投资流程"><a href="#4-3-因子投资流程" class="headerlink" title="4.3 因子投资流程"></a>4.3 因子投资流程</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs">┌─────────────────────────────────────────┐<br>│           因子投资流程                   │<br>├─────────────────────────────────────────┤<br>│                                         │<br>│  1. 因子选择                            │<br>│     ↓                                   │<br>│  2. 股票打分（按因子值排序）             │<br>│     ↓                                   │<br>│  3. 分组（通常分10组）                   │<br>│     ↓                                   │<br>│  4. 做多高分组，做空低分组               │<br>│     ↓                                   │<br>│  5. 定期再平衡（月度/季度）              │<br>│                                         │<br>└─────────────────────────────────────────┘<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-4-优缺点"><a href="#4-4-优缺点" class="headerlink" title="4.4 优缺点"></a>4.4 优缺点</h3><table>
+<thead>
+<tr>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>理论基础扎实</td>
+<td>因子可能失效（因子拥挤）</td>
+</tr>
+<tr>
+<td>容量大</td>
+<td>需要大量数据</td>
+</tr>
+<tr>
+<td>风险分散</td>
+<td>回撤期可能很长</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="五、统计套利策略"><a href="#五、统计套利策略" class="headerlink" title="五、统计套利策略"></a>五、统计套利策略</h2><h3 id="5-1-核心思想"><a href="#5-1-核心思想" class="headerlink" title="5.1 核心思想"></a>5.1 核心思想</h3><p><strong>利用统计学方法发现资产间的错误定价关系</strong>。</p>
+<h3 id="5-2-常见类型"><a href="#5-2-常见类型" class="headerlink" title="5.2 常见类型"></a>5.2 常见类型</h3><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>原理</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>配对交易</strong></td>
+<td>两只相关性高的股票</td>
+<td>可口可乐 vs 百事可乐</td>
+</tr>
+<tr>
+<td><strong>多因子残差套利</strong></td>
+<td>剥离因子后的残差</td>
+<td>行业中性策略</td>
+</tr>
+<tr>
+<td><strong>协整关系</strong></td>
+<td>长期均衡关系</td>
+<td>现货 vs 期货</td>
+</tr>
+<tr>
+<td><strong>指数套利</strong></td>
+<td>指数与成分股定价偏差</td>
+<td>ETF vs 一篮子股票</td>
+</tr>
+</tbody></table>
+<h3 id="5-3-协整检验示例"><a href="#5-3-协整检验示例" class="headerlink" title="5.3 协整检验示例"></a>5.3 协整检验示例</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 协整关系检验</span><br><span class="hljs-keyword">from</span> statsmodels.tsa.stattools <span class="hljs-keyword">import</span> coint<br><br>score, p_value, _ = coint(股票A价格, 股票B价格)<br><br><span class="hljs-keyword">if</span> p_value &lt; <span class="hljs-number">0.05</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;两只股票存在协整关系，可用于配对交易&quot;</span>)<br><span class="hljs-keyword">else</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;不存在协整关系&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="六、事件驱动策略"><a href="#六、事件驱动策略" class="headerlink" title="六、事件驱动策略"></a>六、事件驱动策略</h2><h3 id="6-1-核心思想"><a href="#6-1-核心思想" class="headerlink" title="6.1 核心思想"></a>6.1 核心思想</h3><p><strong>利用公司事件产生的定价偏差进行交易</strong>。</p>
+<h3 id="6-2-常见事件"><a href="#6-2-常见事件" class="headerlink" title="6.2 常见事件"></a>6.2 常见事件</h3><table>
+<thead>
+<tr>
+<th>事件类型</th>
+<th>交易策略</th>
+<th>时间窗口</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>财报发布</strong></td>
+<td>超预期买入，低于预期卖出</td>
+<td>发布前后1-3天</td>
+</tr>
+<tr>
+<td><strong>并购重组</strong></td>
+<td>买入被收购方，做空收购方</td>
+<td>公告后至完成</td>
+</tr>
+<tr>
+<td><strong>股票拆分</strong></td>
+<td>拆分前买入，拆分后卖出</td>
+<td>公告后至执行</td>
+</tr>
+<tr>
+<td><strong>分红除权</strong></td>
+<td>除权前买入，除权后卖出</td>
+<td>股权登记日前后</td>
+</tr>
+<tr>
+<td><strong>指数调整</strong></td>
+<td>调入买入，调出卖出</td>
+<td>调整公告后至生效</td>
+</tr>
+<tr>
+<td><strong>宏观数据</strong></td>
+<td>非农数据、CPI、利率决议</td>
+<td>发布瞬间</td>
+</tr>
+</tbody></table>
+<h3 id="6-3-事件驱动流程"><a href="#6-3-事件驱动流程" class="headerlink" title="6.3 事件驱动流程"></a>6.3 事件驱动流程</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">事件公告 → 快速分析影响 → 生成交易信号 → 立即执行 → 事件落地后平仓<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>⚠️ <strong>注意</strong>: 事件驱动策略对速度要求极高，通常需要程序化交易。</p>
+</blockquote>
+<hr>
+<h2 id="七、机器学习策略"><a href="#七、机器学习策略" class="headerlink" title="七、机器学习策略"></a>七、机器学习策略</h2><h3 id="7-1-核心思想"><a href="#7-1-核心思想" class="headerlink" title="7.1 核心思想"></a>7.1 核心思想</h3><p><strong>用机器学习模型预测价格或收益</strong>。</p>
+<h3 id="7-2-常用模型"><a href="#7-2-常用模型" class="headerlink" title="7.2 常用模型"></a>7.2 常用模型</h3><table>
+<thead>
+<tr>
+<th>模型类型</th>
+<th>代表算法</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>监督学习</strong></td>
+<td>随机森林、XGBoost、神经网络</td>
+<td>预测收益率、分类涨跌</td>
+</tr>
+<tr>
+<td><strong>无监督学习</strong></td>
+<td>K-Means、PCA</td>
+<td>聚类、降维、异常检测</td>
+</tr>
+<tr>
+<td><strong>强化学习</strong></td>
+<td>DQN、PPO</td>
+<td>交易决策优化</td>
+</tr>
+</tbody></table>
+<h3 id="7-3-特征工程"><a href="#7-3-特征工程" class="headerlink" title="7.3 特征工程"></a>7.3 特征工程</h3><p><strong>常用特征类别</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>技术指标</strong></td>
+<td>RSI、MACD、布林带、KDJ</td>
+</tr>
+<tr>
+<td><strong>基本面特征</strong></td>
+<td>PE、PB、ROE、营收增长率</td>
+</tr>
+<tr>
+<td><strong>宏观特征</strong></td>
+<td>利率、汇率、VIX指数</td>
+</tr>
+<tr>
+<td><strong>另类数据</strong></td>
+<td>新闻情绪、搜索指数、卫星图像</td>
+</tr>
+</tbody></table>
+<h3 id="7-4-机器学习流程"><a href="#7-4-机器学习流程" class="headerlink" title="7.4 机器学习流程"></a>7.4 机器学习流程</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs awk">┌─────────────────────────────────────────┐<br>│         机器学习量化策略流程              │<br>├─────────────────────────────────────────┤<br>│                                         │<br>│  <span class="hljs-number">1</span>. 数据收集与清洗                       │<br>│     ↓                                   │<br>│  <span class="hljs-number">2</span>. 特征工程（技术指标、基本面等）        │<br>│     ↓                                   │<br>│  <span class="hljs-number">3</span>. 标签定义（未来N日收益率）            │<br>│     ↓                                   │<br>│  <span class="hljs-number">4</span>. 模型训练（训练集<span class="hljs-regexp">/验证集/</span>测试集）      │<br>│     ↓                                   │<br>│  <span class="hljs-number">5</span>. 模型评估（防止过拟合）               │<br>│     ↓                                   │<br>│  <span class="hljs-number">6</span>. 实盘预测与交易                       │<br>│                                         │<br>└─────────────────────────────────────────┘<br></code></pre></td></tr></table></figure>
+
+<h3 id="7-5-优缺点"><a href="#7-5-优缺点" class="headerlink" title="7.5 优缺点"></a>7.5 优缺点</h3><table>
+<thead>
+<tr>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>可发现非线性关系</td>
+<td>容易过拟合</td>
+</tr>
+<tr>
+<td>自动特征学习</td>
+<td>模型可解释性差</td>
+</tr>
+<tr>
+<td>适应性强</td>
+<td>需要大量数据</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="八、策略选择建议"><a href="#八、策略选择建议" class="headerlink" title="八、策略选择建议"></a>八、策略选择建议</h2><h3 id="8-1-根据个人情况选择"><a href="#8-1-根据个人情况选择" class="headerlink" title="8.1 根据个人情况选择"></a>8.1 根据个人情况选择</h3><table>
+<thead>
+<tr>
+<th>个人情况</th>
+<th>推荐策略</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>编程新手</td>
+<td>因子投资、趋势跟踪</td>
+<td>逻辑简单，易于理解</td>
+</tr>
+<tr>
+<td>有统计背景</td>
+<td>统计套利、配对交易</td>
+<td>需要协整、回归分析</td>
+</tr>
+<tr>
+<td>有ML经验</td>
+<td>机器学习策略</td>
+<td>可发挥模型优势</td>
+</tr>
+<tr>
+<td>资金量小</td>
+<td>中低频策略</td>
+<td>交易成本低，容量不限</td>
+</tr>
+<tr>
+<td>时间有限</td>
+<td>低频策略</td>
+<td>不需要实时监控</td>
+</tr>
+</tbody></table>
+<h3 id="8-2-策略组合建议"><a href="#8-2-策略组合建议" class="headerlink" title="8.2 策略组合建议"></a>8.2 策略组合建议</h3><p><strong>不要把鸡蛋放在一个篮子里</strong> —— 建议组合多种策略：</p>
+<figure class="highlight erlang-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs erlang-repl">┌─────────────────────────────────────────┐<br>│           策略组合示例                   │<br>├─────────────────────────────────────────┤<br>│                                         │<br>│  <span class="hljs-number">40</span><span class="hljs-comment">% 趋势跟踪策略                        │</span><br>│  <span class="hljs-number">30</span><span class="hljs-comment">% 均值回归策略                        │</span><br>│  <span class="hljs-number">20</span><span class="hljs-comment">% 因子投资策略                        │</span><br>│  <span class="hljs-number">10</span><span class="hljs-comment">% 事件驱动策略                        │</span><br>│                                         │<br>│  目标: 不同市场环境都有策略能盈利          │<br>│                                         │<br>└─────────────────────────────────────────┘<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="九、下一篇预告"><a href="#九、下一篇预告" class="headerlink" title="九、下一篇预告"></a>九、下一篇预告</h2><p>在下一篇文章中，我们将介绍量化交易的<strong>完整工作流程</strong>，从数据获取到实盘交易的7个步骤，帮助你建立系统化的量化交易框架。</p>
+<blockquote>
+<p>📌 <strong>下一篇</strong>: [量化交易的工作流程]</p>
+</blockquote>
+<hr>
+<blockquote>
+<p><strong>系列导航</strong>:</p>
+<ul>
+<li><a href="03-core-concepts.md">上一篇: 核心概念与术语</a></li>
+<li><a href="05-workflow.md">下一篇: 工作流程</a></li>
+</ul>
+</blockquote>
+<hr>
+<blockquote>
+<p><strong>免责声明</strong>: 本文仅供学习交流，不构成投资建议。量化交易有风险，入市需谨慎。</p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Quantitative-Trading/" class="category-chain-item">Quantitative Trading</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E9%87%8F%E5%8C%96%E7%AD%96%E7%95%A5/" class="print-no-link">#量化策略</a>
+      
+        <a href="/tags/%E8%B6%8B%E5%8A%BF%E8%B7%9F%E8%B8%AA/" class="print-no-link">#趋势跟踪</a>
+      
+        <a href="/tags/%E5%9D%87%E5%80%BC%E5%9B%9E%E5%BD%92/" class="print-no-link">#均值回归</a>
+      
+        <a href="/tags/%E5%9B%A0%E5%AD%90%E6%8A%95%E8%B5%84/" class="print-no-link">#因子投资</a>
+      
+        <a href="/tags/%E7%BB%9F%E8%AE%A1%E5%A5%97%E5%88%A9/" class="print-no-link">#统计套利</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>量化策略的主要类型——量化交易入门系列（四）</div>
+      <div>https://littlebabyq.github.io/2026/05/16/Quantitative Trading/04-strategy-types/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>BabyQ</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年5月16日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/05/16/Quantitative%20Trading/02-quant-vs-discretionary/" title="量化交易 vs 主观交易：哪种更适合你？——量化交易入门系列（二）">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">量化交易 vs 主观交易：哪种更适合你？——量化交易入门系列（二）</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/05/16/Quantitative%20Trading/06-tools-and-languages/" title="量化交易的常用工具与编程语言——量化交易入门系列（六）">
+                        <span class="hidden-mobile">量化交易的常用工具与编程语言——量化交易入门系列（六）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

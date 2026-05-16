@@ -1,0 +1,1079 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="BabyQ">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="系列: 量化交易入门作者: [BabyQ]日期: 2026-05-16标签: #量化交易 #主观交易 #交易风格 #投资方法   目录 核心区别 详细对比 量化交易的优势与劣势 主观交易的优势与劣势 如何选择 下一篇预告   一、核心区别量化交易和主观交易最根本的区别在于决策依据：    维度 量化交易 主观交易    决策依据 数据、模型、算法 经验、直觉、基本面分析   执行方式 程序化自动">
+<meta property="og:type" content="article">
+<meta property="og:title" content="量化交易 vs 主观交易：哪种更适合你？——量化交易入门系列（二）">
+<meta property="og:url" content="https://littlebabyq.github.io/2026/05/16/Quantitative%20Trading/02-quant-vs-discretionary/index.html">
+<meta property="og:site_name" content="BabyQ Blog">
+<meta property="og:description" content="系列: 量化交易入门作者: [BabyQ]日期: 2026-05-16标签: #量化交易 #主观交易 #交易风格 #投资方法   目录 核心区别 详细对比 量化交易的优势与劣势 主观交易的优势与劣势 如何选择 下一篇预告   一、核心区别量化交易和主观交易最根本的区别在于决策依据：    维度 量化交易 主观交易    决策依据 数据、模型、算法 经验、直觉、基本面分析   执行方式 程序化自动">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-05-16T02:00:00.000Z">
+<meta property="article:modified_time" content="2026-05-16T07:51:38.750Z">
+<meta property="article:author" content="BabyQ">
+<meta property="article:tag" content="主观交易">
+<meta property="article:tag" content="交易风格">
+<meta property="article:tag" content="投资方法">
+<meta property="article:tag" content="量化交易">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>量化交易 vs 主观交易：哪种更适合你？——量化交易入门系列（二） - BabyQ Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"littlebabyq.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>BabyQ&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/bg2.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="量化交易 vs 主观交易：哪种更适合你？——量化交易入门系列（二）"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-05-16 10:00" pubdate>
+          2026年5月16日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          19 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">量化交易 vs 主观交易：哪种更适合你？——量化交易入门系列（二）</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <blockquote>
+<p><strong>系列</strong>: 量化交易入门<br><strong>作者</strong>: [BabyQ]<br><strong>日期</strong>: 2026-05-16<br><strong>标签</strong>: #量化交易 #主观交易 #交易风格 #投资方法</p>
+</blockquote>
+<hr>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ol>
+<li><a href="#%E4%B8%80%E6%A0%B8%E5%BF%83%E5%8C%BA%E5%88%AB">核心区别</a></li>
+<li><a href="#%E4%BA%8C%E8%AF%A6%E7%BB%86%E5%AF%B9%E6%AF%94">详细对比</a></li>
+<li><a href="#%E4%B8%89%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93%E7%9A%84%E4%BC%98%E5%8A%BF%E4%B8%8E%E5%8A%A3%E5%8A%BF">量化交易的优势与劣势</a></li>
+<li><a href="#%E5%9B%9B%E4%B8%BB%E8%A7%82%E4%BA%A4%E6%98%93%E7%9A%84%E4%BC%98%E5%8A%BF%E4%B8%8E%E5%8A%A3%E5%8A%BF">主观交易的优势与劣势</a></li>
+<li><a href="#%E4%BA%94%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9">如何选择</a></li>
+<li><a href="#%E5%85%AD%E4%B8%8B%E4%B8%80%E7%AF%87%E9%A2%84%E5%91%8A">下一篇预告</a></li>
+</ol>
+<hr>
+<h2 id="一、核心区别"><a href="#一、核心区别" class="headerlink" title="一、核心区别"></a>一、核心区别</h2><p>量化交易和主观交易最根本的区别在于<strong>决策依据</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>量化交易</th>
+<th>主观交易</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>决策依据</strong></td>
+<td>数据、模型、算法</td>
+<td>经验、直觉、基本面分析</td>
+</tr>
+<tr>
+<td><strong>执行方式</strong></td>
+<td>程序化自动执行</td>
+<td>人工手动下单</td>
+</tr>
+<tr>
+<td><strong>情绪影响</strong></td>
+<td>无（严格执行规则）</td>
+<td>大（恐惧、贪婪）</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>💡 <strong>简单比喻</strong>: 量化交易像”自动驾驶”，设定好目的地后系统自动驾驶；主观交易像”手动驾驶”，需要司机全程操控。</p>
+</blockquote>
+<hr>
+<h2 id="二、详细对比"><a href="#二、详细对比" class="headerlink" title="二、详细对比"></a>二、详细对比</h2><h3 id="2-1-多维度对比表"><a href="#2-1-多维度对比表" class="headerlink" title="2.1 多维度对比表"></a>2.1 多维度对比表</h3><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>量化交易</th>
+<th>主观交易</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>决策依据</strong></td>
+<td>数据、模型、算法</td>
+<td>经验、直觉、基本面分析</td>
+</tr>
+<tr>
+<td><strong>执行方式</strong></td>
+<td>程序化自动执行</td>
+<td>人工手动下单</td>
+</tr>
+<tr>
+<td><strong>情绪影响</strong></td>
+<td>无（严格执行规则）</td>
+<td>大（恐惧、贪婪）</td>
+</tr>
+<tr>
+<td><strong>回测能力</strong></td>
+<td>可历史回测验证</td>
+<td>难以系统性回测</td>
+</tr>
+<tr>
+<td><strong>交易频率</strong></td>
+<td>可高频（毫秒级）</td>
+<td>通常低频（日&#x2F;周&#x2F;月）</td>
+</tr>
+<tr>
+<td><strong>信息处理</strong></td>
+<td>可同时处理数千标的</td>
+<td>通常关注少数标的</td>
+</tr>
+<tr>
+<td><strong>一致性</strong></td>
+<td>高（规则不变）</td>
+<td>低（受情绪影响）</td>
+</tr>
+<tr>
+<td><strong>容量限制</strong></td>
+<td>策略容量有上限</td>
+<td>相对灵活</td>
+</tr>
+<tr>
+<td><strong>入门门槛</strong></td>
+<td>技术门槛高（编程+数学）</td>
+<td>相对较低</td>
+</tr>
+<tr>
+<td><strong>时间投入</strong></td>
+<td>前期高，后期低</td>
+<td>持续高</td>
+</tr>
+<tr>
+<td><strong>可扩展性</strong></td>
+<td>高（策略可复制）</td>
+<td>低（依赖个人能力）</td>
+</tr>
+</tbody></table>
+<h3 id="2-2-可视化对比"><a href="#2-2-可视化对比" class="headerlink" title="2.2 可视化对比"></a>2.2 可视化对比</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs">量化交易                    主观交易<br>─────────────────    ─────────────────<br>数据驱动 ◄─────────► 经验驱动<br>系统规则 ◄─────────► 灵活判断<br>快速执行 ◄─────────► 深思熟虑<br>消除情绪 ◄─────────► 利用直觉<br>可规模化 ◄─────────► 个人风格<br>─────────────────    ─────────────────<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="三、量化交易的优势与劣势"><a href="#三、量化交易的优势与劣势" class="headerlink" title="三、量化交易的优势与劣势"></a>三、量化交易的优势与劣势</h2><h3 id="3-1-优势-✅"><a href="#3-1-优势-✅" class="headerlink" title="3.1 优势 ✅"></a>3.1 优势 ✅</h3><h4 id="1-纪律性"><a href="#1-纪律性" class="headerlink" title="1. 纪律性"></a>1. 纪律性</h4><p>量化交易严格按照预设规则执行，不会因为恐惧或贪婪而偏离策略。</p>
+<blockquote>
+<p><strong>案例</strong>: 2020年3月美股熔断期间，许多主观交易者因恐慌抛售，而量化趋势跟踪策略则按照规则做空或减仓，避免了情绪化决策。</p>
+</blockquote>
+<h4 id="2-可回测"><a href="#2-可回测" class="headerlink" title="2. 可回测"></a>2. 可回测</h4><p>可以在历史数据上验证策略表现，评估其有效性。</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs makefile"><span class="hljs-section">回测的价值:</span><br>┌─────────────────────────────────────┐<br>│  历史数据 → 策略模拟 → 收益曲线      │<br>│       ↓                              │<br>│  风险指标 → 参数优化 → 策略改进      │<br>└─────────────────────────────────────┘<br></code></pre></td></tr></table></figure>
+
+<h4 id="3-高效率"><a href="#3-高效率" class="headerlink" title="3. 高效率"></a>3. 高效率</h4><ul>
+<li>同时监控数千个标的</li>
+<li>毫秒级响应市场变化</li>
+<li>24小时不间断运行（加密货币市场）</li>
+</ul>
+<h4 id="4-可复制"><a href="#4-可复制" class="headerlink" title="4. 可复制"></a>4. 可复制</h4><p>一个成功的策略可以快速复制到：</p>
+<ul>
+<li>不同市场（A股、美股、期货）</li>
+<li>不同品种（股票、ETF、期权）</li>
+<li>不同时间周期（日线、小时线、分钟线）</li>
+</ul>
+<h4 id="5-客观性"><a href="#5-客观性" class="headerlink" title="5. 客观性"></a>5. 客观性</h4><p>基于数据和统计规律，不受个人情绪、偏见影响。</p>
+<h3 id="3-2-劣势-❌"><a href="#3-2-劣势-❌" class="headerlink" title="3.2 劣势 ❌"></a>3.2 劣势 ❌</h3><h4 id="1-技术门槛高"><a href="#1-技术门槛高" class="headerlink" title="1. 技术门槛高"></a>1. 技术门槛高</h4><p>需要掌握：</p>
+<ul>
+<li>编程（Python&#x2F;C++）</li>
+<li>统计学</li>
+<li>金融知识</li>
+<li>数据库管理</li>
+</ul>
+<h4 id="2-过拟合风险"><a href="#2-过拟合风险" class="headerlink" title="2. 过拟合风险"></a>2. 过拟合风险</h4><p>策略可能在历史数据上表现完美，但在未来失效。</p>
+<blockquote>
+<p><strong>典型案例</strong>: 某策略在2015-2020年回测中年化收益50%，但2021年实盘后亏损30%，因为市场结构发生了变化。</p>
+</blockquote>
+<h4 id="3-模型风险"><a href="#3-模型风险" class="headerlink" title="3. 模型风险"></a>3. 模型风险</h4><p>市场结构变化可能导致模型失效：</p>
+<ul>
+<li>监管政策变化</li>
+<li>市场参与者结构变化</li>
+<li>黑天鹅事件</li>
+</ul>
+<h4 id="4-技术风险"><a href="#4-技术风险" class="headerlink" title="4. 技术风险"></a>4. 技术风险</h4><ul>
+<li>系统故障</li>
+<li>网络延迟</li>
+<li>数据错误</li>
+<li>代码bug</li>
+</ul>
+<hr>
+<h2 id="四、主观交易的优势与劣势"><a href="#四、主观交易的优势与劣势" class="headerlink" title="四、主观交易的优势与劣势"></a>四、主观交易的优势与劣势</h2><h3 id="4-1-优势-✅"><a href="#4-1-优势-✅" class="headerlink" title="4.1 优势 ✅"></a>4.1 优势 ✅</h3><h4 id="1-灵活性"><a href="#1-灵活性" class="headerlink" title="1. 灵活性"></a>1. 灵活性</h4><p>可以根据市场变化灵活调整策略，不受固定规则限制。</p>
+<h4 id="2-信息优势"><a href="#2-信息优势" class="headerlink" title="2. 信息优势"></a>2. 信息优势</h4><ul>
+<li>行业人脉和内部信息</li>
+<li>对公司管理层的直观判断</li>
+<li>对宏观政策的深度理解</li>
+</ul>
+<h4 id="3-创造性"><a href="#3-创造性" class="headerlink" title="3. 创造性"></a>3. 创造性</h4><p>可以发现量化模型难以捕捉的机会：</p>
+<ul>
+<li>主题投资（如新能源、AI）</li>
+<li>困境反转</li>
+<li>管理层变更带来的价值重估</li>
+</ul>
+<h4 id="4-低技术门槛"><a href="#4-低技术门槛" class="headerlink" title="4. 低技术门槛"></a>4. 低技术门槛</h4><p>不需要编程能力，只需要：</p>
+<ul>
+<li>基本面分析能力</li>
+<li>行业知识</li>
+<li>财务分析能力</li>
+</ul>
+<h3 id="4-2-劣势-❌"><a href="#4-2-劣势-❌" class="headerlink" title="4.2 劣势 ❌"></a>4.2 劣势 ❌</h3><h4 id="1-情绪干扰"><a href="#1-情绪干扰" class="headerlink" title="1. 情绪干扰"></a>1. 情绪干扰</h4><table>
+<thead>
+<tr>
+<th>情绪</th>
+<th>典型错误</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>恐惧</strong></td>
+<td>市场下跌时恐慌抛售</td>
+</tr>
+<tr>
+<td><strong>贪婪</strong></td>
+<td>市场上涨时追高买入</td>
+</tr>
+<tr>
+<td><strong>锚定效应</strong></td>
+<td>过度关注买入成本</td>
+</tr>
+<tr>
+<td><strong>确认偏误</strong></td>
+<td>只关注支持自己观点的信息</td>
+</tr>
+</tbody></table>
+<h4 id="2-精力有限"><a href="#2-精力有限" class="headerlink" title="2. 精力有限"></a>2. 精力有限</h4><p>无法同时深入研究太多标的，通常只能关注10-30只股票。</p>
+<h4 id="3-难以复盘"><a href="#3-难以复盘" class="headerlink" title="3. 难以复盘"></a>3. 难以复盘</h4><p>缺乏系统性的交易记录和分析，难以客观评估自己的表现。</p>
+<h4 id="4-一致性差"><a href="#4-一致性差" class="headerlink" title="4. 一致性差"></a>4. 一致性差</h4><p>同样的情况可能做出不同决策，缺乏可重复性。</p>
+<hr>
+<h2 id="五、如何选择"><a href="#五、如何选择" class="headerlink" title="五、如何选择"></a>五、如何选择</h2><h3 id="5-1-决策树"><a href="#5-1-决策树" class="headerlink" title="5.1 决策树"></a>5.1 决策树</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs">                   选择交易风格<br>                        │<br>        ┌───────────────┼───────────────┐<br>        │               │               │<br>   有编程基础？      有时间研究？     资金规模？<br>        │               │               │<br>   ┌────┴────┐     ┌───┴───┐      ┌───┴───┐<br>   │         │     │       │      │       │<br>  是        否    多      少     大      小<br>   │         │     │       │      │       │<br>   ▼         ▼     ▼       ▼      ▼       ▼<br>量化交易  主观交易  量化   主观   量化    均可<br>或混合    或学习    交易   交易   交易<br></code></pre></td></tr></table></figure>
+
+<h3 id="5-2-适合量化交易的人"><a href="#5-2-适合量化交易的人" class="headerlink" title="5.2 适合量化交易的人"></a>5.2 适合量化交易的人</h3><p>✅ <strong>适合</strong>:</p>
+<ul>
+<li>有编程基础（Python&#x2F;R&#x2F;C++）</li>
+<li>喜欢数据分析和数学建模</li>
+<li>追求系统化和纪律性</li>
+<li>希望自动化交易，减少时间投入</li>
+<li>对技术分析和统计学感兴趣</li>
+</ul>
+<h3 id="5-3-适合主观交易的人"><a href="#5-3-适合主观交易的人" class="headerlink" title="5.3 适合主观交易的人"></a>5.3 适合主观交易的人</h3><p>✅ <strong>适合</strong>:</p>
+<ul>
+<li>有深厚的行业知识和商业洞察力</li>
+<li>善于与人沟通，获取信息</li>
+<li>喜欢研究公司基本面</li>
+<li>能够控制情绪，保持理性</li>
+<li>对宏观经济有深刻理解</li>
+</ul>
+<h3 id="5-4-混合模式"><a href="#5-4-混合模式" class="headerlink" title="5.4 混合模式"></a>5.4 混合模式</h3><p>实际上，很多成功的交易者采用<strong>混合模式</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>混合模式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>量化选股 + 主观择时</strong></td>
+<td>用模型筛选股票，人工决定买卖时机</td>
+</tr>
+<tr>
+<td><strong>主观决策 + 量化执行</strong></td>
+<td>人工决定交易方向，程序自动下单</td>
+</tr>
+<tr>
+<td><strong>量化信号 + 人工过滤</strong></td>
+<td>模型生成信号，人工审核后执行</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="六、下一篇预告"><a href="#六、下一篇预告" class="headerlink" title="六、下一篇预告"></a>六、下一篇预告</h2><p>在下一篇文章中，我们将介绍量化交易中的<strong>核心概念与术语</strong>，包括Alpha、Beta、夏普比率等关键指标，帮助你建立量化交易的语言体系。</p>
+<blockquote>
+<p>📌 <strong>下一篇</strong>: [量化交易核心概念与术语详解]</p>
+</blockquote>
+<hr>
+<blockquote>
+<p><strong>系列导航</strong>:</p>
+<ul>
+<li><a href="01-what-is-quantitative-trading.md">上一篇: 什么是量化交易？</a></li>
+<li><a href="03-core-concepts.md">下一篇: 核心概念与术语</a></li>
+</ul>
+</blockquote>
+<hr>
+<blockquote>
+<p><strong>免责声明</strong>: 本文仅供学习交流，不构成投资建议。量化交易有风险，入市需谨慎。</p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Quantitative-Trading/" class="category-chain-item">Quantitative Trading</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93/" class="print-no-link">#量化交易</a>
+      
+        <a href="/tags/%E4%B8%BB%E8%A7%82%E4%BA%A4%E6%98%93/" class="print-no-link">#主观交易</a>
+      
+        <a href="/tags/%E4%BA%A4%E6%98%93%E9%A3%8E%E6%A0%BC/" class="print-no-link">#交易风格</a>
+      
+        <a href="/tags/%E6%8A%95%E8%B5%84%E6%96%B9%E6%B3%95/" class="print-no-link">#投资方法</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>量化交易 vs 主观交易：哪种更适合你？——量化交易入门系列（二）</div>
+      <div>https://littlebabyq.github.io/2026/05/16/Quantitative Trading/02-quant-vs-discretionary/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>BabyQ</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年5月16日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/05/16/Quantitative%20Trading/03-core-concepts/" title="量化交易核心概念与术语详解——量化交易入门系列（三）">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">量化交易核心概念与术语详解——量化交易入门系列（三）</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/05/16/Quantitative%20Trading/04-strategy-types/" title="量化策略的主要类型——量化交易入门系列（四）">
+                        <span class="hidden-mobile">量化策略的主要类型——量化交易入门系列（四）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,1100 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="BabyQ">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="系列: 量化交易入门作者: [BabyQ]日期: 2026-05-16标签: #量化交易 #回测 #过拟合 #样本外测试 #交叉验证   目录 回测的重要性 回测中的常见陷阱 过拟合的识别与避免 回测最佳实践 回测评价指标 下一篇预告   一、回测的重要性1.1 什么是回测回测（Backtesting） 是在历史数据上模拟策略表现的过程，是验证策略有效性的关键步骤。 12345678910111">
+<meta property="og:type" content="article">
+<meta property="og:title" content="回测与过拟合——量化交易入门系列（九）">
+<meta property="og:url" content="https://littlebabyq.github.io/2026/05/16/Quantitative%20Trading/09-backtesting-and-overfitting/index.html">
+<meta property="og:site_name" content="BabyQ Blog">
+<meta property="og:description" content="系列: 量化交易入门作者: [BabyQ]日期: 2026-05-16标签: #量化交易 #回测 #过拟合 #样本外测试 #交叉验证   目录 回测的重要性 回测中的常见陷阱 过拟合的识别与避免 回测最佳实践 回测评价指标 下一篇预告   一、回测的重要性1.1 什么是回测回测（Backtesting） 是在历史数据上模拟策略表现的过程，是验证策略有效性的关键步骤。 12345678910111">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-05-16T02:00:00.000Z">
+<meta property="article:modified_time" content="2026-05-16T07:59:59.714Z">
+<meta property="article:author" content="BabyQ">
+<meta property="article:tag" content="交叉验证">
+<meta property="article:tag" content="回测">
+<meta property="article:tag" content="样本外测试">
+<meta property="article:tag" content="过拟合">
+<meta property="article:tag" content="量化交易">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>回测与过拟合——量化交易入门系列（九） - BabyQ Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"littlebabyq.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>BabyQ&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/bg2.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="回测与过拟合——量化交易入门系列（九）"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-05-16 10:00" pubdate>
+          2026年5月16日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          50 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">回测与过拟合——量化交易入门系列（九）</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <blockquote>
+<p><strong>系列</strong>: 量化交易入门<br><strong>作者</strong>: [BabyQ]<br><strong>日期</strong>: 2026-05-16<br><strong>标签</strong>: #量化交易 #回测 #过拟合 #样本外测试 #交叉验证</p>
+</blockquote>
+<hr>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ol>
+<li><a href="#%E4%B8%80%E5%9B%9E%E6%B5%8B%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7">回测的重要性</a></li>
+<li><a href="#%E4%BA%8C%E5%9B%9E%E6%B5%8B%E4%B8%AD%E7%9A%84%E5%B8%B8%E8%A7%81%E9%99%B7%E9%98%B1">回测中的常见陷阱</a></li>
+<li><a href="#%E4%B8%89%E8%BF%87%E6%8B%9F%E5%90%88%E7%9A%84%E8%AF%86%E5%88%AB%E4%B8%8E%E9%81%BF%E5%85%8D">过拟合的识别与避免</a></li>
+<li><a href="#%E5%9B%9B%E5%9B%9E%E6%B5%8B%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5">回测最佳实践</a></li>
+<li><a href="#%E4%BA%94%E5%9B%9E%E6%B5%8B%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87">回测评价指标</a></li>
+<li><a href="#%E5%85%AD%E4%B8%8B%E4%B8%80%E7%AF%87%E9%A2%84%E5%91%8A">下一篇预告</a></li>
+</ol>
+<hr>
+<h2 id="一、回测的重要性"><a href="#一、回测的重要性" class="headerlink" title="一、回测的重要性"></a>一、回测的重要性</h2><h3 id="1-1-什么是回测"><a href="#1-1-什么是回测" class="headerlink" title="1.1 什么是回测"></a>1.1 什么是回测</h3><p><strong>回测（Backtesting）</strong> 是在历史数据上模拟策略表现的过程，是验证策略有效性的关键步骤。</p>
+<figure class="highlight nestedtext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs nestedtext"><span class="hljs-attribute">┌─────────────────────────────────────────┐</span><br><span class="hljs-attribute">│           回测的价值                     │</span><br><span class="hljs-attribute">├─────────────────────────────────────────┤</span><br><span class="hljs-attribute">│                                         │</span><br><span class="hljs-attribute">│  历史数据 → 策略模拟 → 收益曲线          │</span><br><span class="hljs-attribute">│       ↓         ↓                        │</span><br><span class="hljs-attribute">│  风险指标 ← 参数优化 ← 策略改进          │</span><br><span class="hljs-attribute">│                                         │</span><br><span class="hljs-attribute">│  价值</span><span class="hljs-punctuation">:</span> <span class="hljs-string">                                  │</span><br>│  • 验证策略逻辑是否有效                   │<br>│  • 评估风险收益特征                       │<br>│  • 优化参数（需谨慎）                     │<br>│  • 建立交易信心                           │<br>│                                         │<br>└─────────────────────────────────────────┘<br></code></pre></td></tr></table></figure>
+
+<h3 id="1-2-回测-vs-实盘"><a href="#1-2-回测-vs-实盘" class="headerlink" title="1.2 回测 vs 实盘"></a>1.2 回测 vs 实盘</h3><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>回测</th>
+<th>实盘</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>数据</strong></td>
+<td>历史数据</td>
+<td>实时数据</td>
+</tr>
+<tr>
+<td><strong>执行</strong></td>
+<td>理想化</td>
+<td>有滑点、延迟</td>
+</tr>
+<tr>
+<td><strong>情绪</strong></td>
+<td>无</td>
+<td>有</td>
+</tr>
+<tr>
+<td><strong>成本</strong></td>
+<td>可忽略</td>
+<td>真实手续费</td>
+</tr>
+<tr>
+<td><strong>结果</strong></td>
+<td>确定</td>
+<td>不确定</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>⚠️ <strong>重要</strong>: 回测表现 ≠ 实盘表现，回测好不代表实盘能赚钱。</p>
+</blockquote>
+<hr>
+<h2 id="二、回测中的常见陷阱"><a href="#二、回测中的常见陷阱" class="headerlink" title="二、回测中的常见陷阱"></a>二、回测中的常见陷阱</h2><h3 id="2-1-陷阱汇总"><a href="#2-1-陷阱汇总" class="headerlink" title="2.1 陷阱汇总"></a>2.1 陷阱汇总</h3><table>
+<thead>
+<tr>
+<th>陷阱</th>
+<th>说明</th>
+<th>后果</th>
+<th>解决方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>过拟合</strong></td>
+<td>策略过度适应历史数据</td>
+<td>实盘失效</td>
+<td>简化模型、交叉验证</td>
+</tr>
+<tr>
+<td><strong>前视偏差</strong></td>
+<td>使用未来信息</td>
+<td>虚高收益</td>
+<td>严格按时间顺序</td>
+</tr>
+<tr>
+<td><strong>幸存者偏差</strong></td>
+<td>忽略已退市标的</td>
+<td>高估收益</td>
+<td>使用包含退市股的数据</td>
+</tr>
+<tr>
+<td><strong>交易成本忽略</strong></td>
+<td>未考虑手续费、滑点</td>
+<td>高估收益</td>
+<td>合理设置成本参数</td>
+</tr>
+<tr>
+<td><strong>过度优化</strong></td>
+<td>参数过多</td>
+<td>过拟合</td>
+<td>减少参数、正则化</td>
+</tr>
+<tr>
+<td><strong>数据挖掘偏差</strong></td>
+<td>大量尝试偶然发现”有效”策略</td>
+<td>假阳性</td>
+<td>样本外测试</td>
+</tr>
+<tr>
+<td><strong>未来函数</strong></td>
+<td>使用当前数据计算过去信号</td>
+<td>虚高收益</td>
+<td>确保只用当时可得数据</td>
+</tr>
+</tbody></table>
+<h3 id="2-2-前视偏差（Look-ahead-Bias）详解"><a href="#2-2-前视偏差（Look-ahead-Bias）详解" class="headerlink" title="2.2 前视偏差（Look-ahead Bias）详解"></a>2.2 前视偏差（Look-ahead Bias）详解</h3><p><strong>错误示例</strong>:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># ❌ 错误：使用了未来信息</span><br>data[<span class="hljs-string">&#x27;future_return&#x27;</span>] = data[<span class="hljs-string">&#x27;close&#x27;</span>].shift(-<span class="hljs-number">1</span>) / data[<span class="hljs-string">&#x27;close&#x27;</span>] - <span class="hljs-number">1</span>  <span class="hljs-comment"># 未来收益率</span><br>data[<span class="hljs-string">&#x27;signal&#x27;</span>] = np.where(data[<span class="hljs-string">&#x27;future_return&#x27;</span>] &gt; <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, -<span class="hljs-number">1</span>)  <span class="hljs-comment"># 基于未来信息生成信号</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>正确做法</strong>:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># ✅ 正确：只使用当前及之前的数据</span><br>data[<span class="hljs-string">&#x27;past_return&#x27;</span>] = data[<span class="hljs-string">&#x27;close&#x27;</span>].pct_change()<br>data[<span class="hljs-string">&#x27;signal&#x27;</span>] = np.where(data[<span class="hljs-string">&#x27;past_return&#x27;</span>] &gt; <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, -<span class="hljs-number">1</span>)  <span class="hljs-comment"># 基于过去信息生成信号</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="2-3-幸存者偏差详解"><a href="#2-3-幸存者偏差详解" class="headerlink" title="2.3 幸存者偏差详解"></a>2.3 幸存者偏差详解</h3><p><strong>问题</strong>: 只使用当前存活的公司数据，忽略了已经退市的公司。</p>
+<p><strong>影响</strong>: </p>
+<ul>
+<li>高估策略收益</li>
+<li>低估策略风险</li>
+</ul>
+<p><strong>解决方法</strong>:</p>
+<ul>
+<li>使用包含退市股的数据（如CRSP数据库）</li>
+<li>回测时考虑退市情况</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 检查数据是否包含退市股</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">check_delistings</span>(<span class="hljs-params">data</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;检查数据中是否包含退市股&quot;&quot;&quot;</span><br>    <span class="hljs-comment"># 如果有退市标记字段</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;is_delisted&#x27;</span> <span class="hljs-keyword">in</span> data.columns:<br>        delisted = data[data[<span class="hljs-string">&#x27;is_delisted&#x27;</span>] == <span class="hljs-number">1</span>]<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;退市股票数量: <span class="hljs-subst">&#123;<span class="hljs-built_in">len</span>(delisted)&#125;</span>&quot;</span>)<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;警告：数据可能不包含退市股票，存在幸存者偏差风险&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="三、过拟合的识别与避免"><a href="#三、过拟合的识别与避免" class="headerlink" title="三、过拟合的识别与避免"></a>三、过拟合的识别与避免</h2><h3 id="3-1-什么是过拟合"><a href="#3-1-什么是过拟合" class="headerlink" title="3.1 什么是过拟合"></a>3.1 什么是过拟合</h3><p><strong>过拟合（Overfitting）</strong> 是指策略在历史数据上表现完美，但在未来数据上失效的现象。</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs makefile"><span class="hljs-section">过拟合示意:</span><br><br>收益<br>  ↑<br>  │    ／￣￣＼        ／￣￣＼<br>  │   ／        ＼    ／        ＼<br>  │  ／   回测    ＼  ／   实盘    ＼<br>  │ ／    高收益   ＼／    低收益    ＼<br>  │／                                  ＼<br>  └────────────────────────────────────→ 时间<br>       历史数据          未来数据<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-2-过拟合的迹象"><a href="#3-2-过拟合的迹象" class="headerlink" title="3.2 过拟合的迹象"></a>3.2 过拟合的迹象</h3><table>
+<thead>
+<tr>
+<th>迹象</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>参数过多</strong></td>
+<td>策略有大量可调参数</td>
+</tr>
+<tr>
+<td><strong>收益曲线过于平滑</strong></td>
+<td>几乎没有回撤</td>
+</tr>
+<tr>
+<td><strong>夏普比率过高</strong></td>
+<td>&gt; 3.0 需警惕</td>
+</tr>
+<tr>
+<td><strong>胜率过高</strong></td>
+<td>&gt; 70% 需警惕</td>
+</tr>
+<tr>
+<td><strong>只在特定时期表现好</strong></td>
+<td>对特定市场环境过度适应</td>
+</tr>
+</tbody></table>
+<h3 id="3-3-避免过拟合的方法"><a href="#3-3-避免过拟合的方法" class="headerlink" title="3.3 避免过拟合的方法"></a>3.3 避免过拟合的方法</h3><h4 id="方法一：样本外测试（Out-of-Sample-Testing）"><a href="#方法一：样本外测试（Out-of-Sample-Testing）" class="headerlink" title="方法一：样本外测试（Out-of-Sample Testing）"></a>方法一：样本外测试（Out-of-Sample Testing）</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 将数据分为训练集和测试集</span><br>train_data = data[:<span class="hljs-string">&#x27;2022-01-01&#x27;</span>]  <span class="hljs-comment"># 训练集：2022年前</span><br>test_data = data[<span class="hljs-string">&#x27;2022-01-01&#x27;</span>:]   <span class="hljs-comment"># 测试集：2022年后</span><br><br><span class="hljs-comment"># 在训练集上优化参数</span><br>best_params = optimize_strategy(train_data)<br><br><span class="hljs-comment"># 在测试集上验证（只能用一次！）</span><br>performance = backtest(test_data, best_params)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;样本外夏普比率: <span class="hljs-subst">&#123;performance[<span class="hljs-string">&#x27;sharpe&#x27;</span>]&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<h4 id="方法二：交叉验证（Cross-Validation）"><a href="#方法二：交叉验证（Cross-Validation）" class="headerlink" title="方法二：交叉验证（Cross-Validation）"></a>方法二：交叉验证（Cross-Validation）</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> TimeSeriesSplit<br><br><span class="hljs-comment"># 时间序列交叉验证</span><br>tscv = TimeSeriesSplit(n_splits=<span class="hljs-number">5</span>)<br><br><span class="hljs-keyword">for</span> train_idx, test_idx <span class="hljs-keyword">in</span> tscv.split(data):<br>    train_data = data.iloc[train_idx]<br>    test_data = data.iloc[test_idx]<br>    <br>    <span class="hljs-comment"># 训练</span><br>    model.fit(train_data)<br>    <br>    <span class="hljs-comment"># 测试</span><br>    predictions = model.predict(test_data)<br>    score = evaluate(predictions, test_data)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Fold得分: <span class="hljs-subst">&#123;score&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<h4 id="方法三：简化模型"><a href="#方法三：简化模型" class="headerlink" title="方法三：简化模型"></a>方法三：简化模型</h4><table>
+<thead>
+<tr>
+<th>原则</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>奥卡姆剃刀</strong></td>
+<td>简单的策略往往更鲁棒</td>
+</tr>
+<tr>
+<td><strong>减少参数</strong></td>
+<td>参数越少，过拟合风险越低</td>
+</tr>
+<tr>
+<td><strong>经济直觉</strong></td>
+<td>策略应有合理的经济逻辑</td>
+</tr>
+</tbody></table>
+<h4 id="方法四：正则化"><a href="#方法四：正则化" class="headerlink" title="方法四：正则化"></a>方法四：正则化</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># L1正则化（Lasso）</span><br><span class="hljs-keyword">from</span> sklearn.linear_model <span class="hljs-keyword">import</span> Lasso<br><br>model = Lasso(alpha=<span class="hljs-number">0.1</span>)  <span class="hljs-comment"># alpha控制正则化强度</span><br>model.fit(X_train, y_train)<br><br><span class="hljs-comment"># L2正则化（Ridge）</span><br><span class="hljs-keyword">from</span> sklearn.linear_model <span class="hljs-keyword">import</span> Ridge<br><br>model = Ridge(alpha=<span class="hljs-number">0.1</span>)<br>model.fit(X_train, y_train)<br></code></pre></td></tr></table></figure>
+
+<h4 id="方法五：蒙特卡洛模拟"><a href="#方法五：蒙特卡洛模拟" class="headerlink" title="方法五：蒙特卡洛模拟"></a>方法五：蒙特卡洛模拟</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">monte_carlo_permutation_test</span>(<span class="hljs-params">returns, n_permutations=<span class="hljs-number">1000</span></span>):<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    蒙特卡洛排列检验</span><br><span class="hljs-string">    检验策略收益是否显著优于随机</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    observed_sharpe = returns.mean() / returns.std() * np.sqrt(<span class="hljs-number">252</span>)<br>    <br>    <span class="hljs-comment"># 随机打乱收益率，模拟随机策略</span><br>    random_sharpes = []<br>    <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n_permutations):<br>        shuffled = np.random.permutation(returns)<br>        random_sharpe = shuffled.mean() / shuffled.std() * np.sqrt(<span class="hljs-number">252</span>)<br>        random_sharpes.append(random_sharpe)<br>    <br>    <span class="hljs-comment"># 计算p值</span><br>    p_value = np.mean(np.array(random_sharpes) &gt;= observed_sharpe)<br>    <span class="hljs-keyword">return</span> p_value<br><br><span class="hljs-comment"># 使用示例</span><br>p_value = monte_carlo_permutation_test(strategy_returns)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;p值: <span class="hljs-subst">&#123;p_value:<span class="hljs-number">.4</span>f&#125;</span>&quot;</span>)<br><span class="hljs-keyword">if</span> p_value &lt; <span class="hljs-number">0.05</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;策略收益显著优于随机（95%置信度）&quot;</span>)<br><span class="hljs-keyword">else</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;策略收益可能来自运气&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="四、回测最佳实践"><a href="#四、回测最佳实践" class="headerlink" title="四、回测最佳实践"></a>四、回测最佳实践</h2><h3 id="4-1-回测检查清单"><a href="#4-1-回测检查清单" class="headerlink" title="4.1 回测检查清单"></a>4.1 回测检查清单</h3><ul>
+<li><input disabled="" type="checkbox"> 数据质量检查（无缺失、无异常值）</li>
+<li><input disabled="" type="checkbox"> 包含交易成本（手续费、滑点）</li>
+<li><input disabled="" type="checkbox"> 使用复权价格</li>
+<li><input disabled="" type="checkbox"> 避免前视偏差</li>
+<li><input disabled="" type="checkbox"> 包含退市股票（避免幸存者偏差）</li>
+<li><input disabled="" type="checkbox"> 样本外测试</li>
+<li><input disabled="" type="checkbox"> 参数敏感性分析</li>
+<li><input disabled="" type="checkbox"> 蒙特卡洛稳健性检验</li>
+</ul>
+<h3 id="4-2-交易成本设置"><a href="#4-2-交易成本设置" class="headerlink" title="4.2 交易成本设置"></a>4.2 交易成本设置</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#  realistic交易成本设置</span><br>transaction_cost = &#123;<br>    <span class="hljs-string">&#x27;commission_rate&#x27;</span>: <span class="hljs-number">0.0003</span>,      <span class="hljs-comment"># 佣金率 0.03%</span><br>    <span class="hljs-string">&#x27;slippage&#x27;</span>: <span class="hljs-number">0.001</span>,              <span class="hljs-comment"># 滑点 0.1%</span><br>    <span class="hljs-string">&#x27;stamp_duty&#x27;</span>: <span class="hljs-number">0.001</span>,            <span class="hljs-comment"># 印花税 0.1%（卖出时）</span><br>&#125;<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_transaction_cost</span>(<span class="hljs-params">price, volume, is_buy</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;计算交易成本&quot;&quot;&quot;</span><br>    commission = price * volume * transaction_cost[<span class="hljs-string">&#x27;commission_rate&#x27;</span>]<br>    slippage = price * volume * transaction_cost[<span class="hljs-string">&#x27;slippage&#x27;</span>]<br>    stamp = price * volume * transaction_cost[<span class="hljs-string">&#x27;stamp_duty&#x27;</span>] <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> is_buy <span class="hljs-keyword">else</span> <span class="hljs-number">0</span><br>    <span class="hljs-keyword">return</span> commission + slippage + stamp<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-3-参数敏感性分析"><a href="#4-3-参数敏感性分析" class="headerlink" title="4.3 参数敏感性分析"></a>4.3 参数敏感性分析</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">parameter_sensitivity_analysis</span>(<span class="hljs-params">strategy, param_range, data</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    参数敏感性分析</span><br><span class="hljs-string">    检查策略表现是否对参数敏感</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    results = []<br>    <span class="hljs-keyword">for</span> param <span class="hljs-keyword">in</span> param_range:<br>        performance = backtest(data, strategy, param=param)<br>        results.append(&#123;<br>            <span class="hljs-string">&#x27;param&#x27;</span>: param,<br>            <span class="hljs-string">&#x27;sharpe&#x27;</span>: performance[<span class="hljs-string">&#x27;sharpe&#x27;</span>],<br>            <span class="hljs-string">&#x27;return&#x27;</span>: performance[<span class="hljs-string">&#x27;annual_return&#x27;</span>]<br>        &#125;)<br>    <br>    <span class="hljs-keyword">return</span> pd.DataFrame(results)<br><br><span class="hljs-comment"># 示例：测试不同均线周期的表现</span><br>param_range = <span class="hljs-built_in">range</span>(<span class="hljs-number">5</span>, <span class="hljs-number">50</span>, <span class="hljs-number">5</span>)<br>results = parameter_sensitivity_analysis(DualMAStrategy, param_range, data)<br><br><span class="hljs-comment"># 如果表现随参数剧烈变化，说明策略不稳定</span><br><span class="hljs-built_in">print</span>(results)<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="五、回测评价指标"><a href="#五、回测评价指标" class="headerlink" title="五、回测评价指标"></a>五、回测评价指标</h2><h3 id="5-1-核心指标"><a href="#5-1-核心指标" class="headerlink" title="5.1 核心指标"></a>5.1 核心指标</h3><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>说明</th>
+<th>优秀标准</th>
+<th>警示标准</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>年化收益率</strong></td>
+<td>策略一年的收益率</td>
+<td>&gt; 10%</td>
+<td>&lt; 0%</td>
+</tr>
+<tr>
+<td><strong>夏普比率</strong></td>
+<td>风险调整后收益</td>
+<td>&gt; 1.0</td>
+<td>&lt; 0.5</td>
+</tr>
+<tr>
+<td><strong>最大回撤</strong></td>
+<td>最大亏损幅度</td>
+<td>&lt; 20%</td>
+<td>&gt; 30%</td>
+</tr>
+<tr>
+<td><strong>卡玛比率</strong></td>
+<td>收益&#x2F;最大回撤</td>
+<td>&gt; 1.0</td>
+<td>&lt; 0.5</td>
+</tr>
+<tr>
+<td><strong>胜率</strong></td>
+<td>盈利交易占比</td>
+<td>&gt; 50%</td>
+<td>&lt; 40%</td>
+</tr>
+<tr>
+<td><strong>盈亏比</strong></td>
+<td>平均盈利&#x2F;平均亏损</td>
+<td>&gt; 1.5</td>
+<td>&lt; 1.0</td>
+</tr>
+<tr>
+<td><strong>交易次数</strong></td>
+<td>总交易次数</td>
+<td>&gt; 100</td>
+<td>&lt; 30</td>
+</tr>
+</tbody></table>
+<h3 id="5-2-指标计算示例"><a href="#5-2-指标计算示例" class="headerlink" title="5.2 指标计算示例"></a>5.2 指标计算示例</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_metrics</span>(<span class="hljs-params">returns</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;计算回测指标&quot;&quot;&quot;</span><br>    metrics = &#123;&#125;<br>    <br>    <span class="hljs-comment"># 年化收益率</span><br>    metrics[<span class="hljs-string">&#x27;annual_return&#x27;</span>] = returns.mean() * <span class="hljs-number">252</span><br>    <br>    <span class="hljs-comment"># 年化波动率</span><br>    metrics[<span class="hljs-string">&#x27;annual_volatility&#x27;</span>] = returns.std() * np.sqrt(<span class="hljs-number">252</span>)<br>    <br>    <span class="hljs-comment"># 夏普比率</span><br>    risk_free_rate = <span class="hljs-number">0.03</span><br>    metrics[<span class="hljs-string">&#x27;sharpe&#x27;</span>] = (metrics[<span class="hljs-string">&#x27;annual_return&#x27;</span>] - risk_free_rate) / metrics[<span class="hljs-string">&#x27;annual_volatility&#x27;</span>]<br>    <br>    <span class="hljs-comment"># 最大回撤</span><br>    cumulative = (<span class="hljs-number">1</span> + returns).cumprod()<br>    peak = cumulative.expanding().<span class="hljs-built_in">max</span>()<br>    drawdown = (cumulative - peak) / peak<br>    metrics[<span class="hljs-string">&#x27;max_drawdown&#x27;</span>] = drawdown.<span class="hljs-built_in">min</span>()<br>    <br>    <span class="hljs-comment"># 卡玛比率</span><br>    metrics[<span class="hljs-string">&#x27;calmar&#x27;</span>] = metrics[<span class="hljs-string">&#x27;annual_return&#x27;</span>] / <span class="hljs-built_in">abs</span>(metrics[<span class="hljs-string">&#x27;max_drawdown&#x27;</span>])<br>    <br>    <span class="hljs-keyword">return</span> metrics<br><br><span class="hljs-comment"># 使用示例</span><br>returns = pd.Series(np.random.normal(<span class="hljs-number">0.001</span>, <span class="hljs-number">0.02</span>, <span class="hljs-number">252</span>))<br>metrics = calculate_metrics(returns)<br><br><span class="hljs-keyword">for</span> key, value <span class="hljs-keyword">in</span> metrics.items():<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;key&#125;</span>: <span class="hljs-subst">&#123;value:<span class="hljs-number">.4</span>f&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="六、下一篇预告"><a href="#六、下一篇预告" class="headerlink" title="六、下一篇预告"></a>六、下一篇预告</h2><p>在下一篇文章中，我们将提供<strong>入门学习路径</strong>，帮助你规划从新手到进阶的学习路线。</p>
+<blockquote>
+<p>📌 <strong>下一篇</strong>: <a href="10-learning-path.md">入门学习路径</a></p>
+</blockquote>
+<hr>
+<blockquote>
+<p><strong>系列导航</strong>:</p>
+<ul>
+<li><a href="08-risk-management.md">上一篇: 风险管理</a></li>
+<li><a href="10-learning-path.md">下一篇: 入门学习路径</a></li>
+</ul>
+</blockquote>
+<hr>
+<blockquote>
+<p><strong>免责声明</strong>: 本文仅供学习交流，不构成投资建议。量化交易有风险，入市需谨慎。</p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Quantitative-Trading/" class="category-chain-item">Quantitative Trading</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93/" class="print-no-link">#量化交易</a>
+      
+        <a href="/tags/%E5%9B%9E%E6%B5%8B/" class="print-no-link">#回测</a>
+      
+        <a href="/tags/%E8%BF%87%E6%8B%9F%E5%90%88/" class="print-no-link">#过拟合</a>
+      
+        <a href="/tags/%E6%A0%B7%E6%9C%AC%E5%A4%96%E6%B5%8B%E8%AF%95/" class="print-no-link">#样本外测试</a>
+      
+        <a href="/tags/%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81/" class="print-no-link">#交叉验证</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>回测与过拟合——量化交易入门系列（九）</div>
+      <div>https://littlebabyq.github.io/2026/05/16/Quantitative Trading/09-backtesting-and-overfitting/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>BabyQ</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年5月16日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/05/16/Quantitative%20Trading/README/" title="量化交易入门系列">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">量化交易入门系列</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/04/29/AI%20and%20Agent/Agent%20Harness%20introduction/" title="Agent Harness Introduction">
+                        <span class="hidden-mobile">Agent Harness Introduction</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

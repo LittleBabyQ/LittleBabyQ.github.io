@@ -1,0 +1,1236 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="BabyQ">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="系列: 量化交易入门作者: [BabyQ]日期: 2026-05-16标签: #量化交易 #Alpha #Beta #夏普比率 #风险指标   目录 收益相关指标 风险相关指标 风险调整收益指标 量化专用术语 下一篇预告   一、收益相关指标1.1 年化收益率（Annualized Return）定义: 将不同时间周期的收益率转换为年度收益率，便于比较。 公式: 1234年化收益率 &#x3D; (1 +">
+<meta property="og:type" content="article">
+<meta property="og:title" content="量化交易核心概念与术语详解——量化交易入门系列（三）">
+<meta property="og:url" content="https://littlebabyq.github.io/2026/05/16/Quantitative%20Trading/03-core-concepts/index.html">
+<meta property="og:site_name" content="BabyQ Blog">
+<meta property="og:description" content="系列: 量化交易入门作者: [BabyQ]日期: 2026-05-16标签: #量化交易 #Alpha #Beta #夏普比率 #风险指标   目录 收益相关指标 风险相关指标 风险调整收益指标 量化专用术语 下一篇预告   一、收益相关指标1.1 年化收益率（Annualized Return）定义: 将不同时间周期的收益率转换为年度收益率，便于比较。 公式: 1234年化收益率 &#x3D; (1 +">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-05-16T02:00:00.000Z">
+<meta property="article:modified_time" content="2026-05-16T07:52:37.457Z">
+<meta property="article:author" content="BabyQ">
+<meta property="article:tag" content="Alpha">
+<meta property="article:tag" content="Beta">
+<meta property="article:tag" content="夏普比率">
+<meta property="article:tag" content="量化交易">
+<meta property="article:tag" content="风险指标">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>量化交易核心概念与术语详解——量化交易入门系列（三） - BabyQ Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"littlebabyq.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>BabyQ&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/bg2.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="量化交易核心概念与术语详解——量化交易入门系列（三）"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-05-16 10:00" pubdate>
+          2026年5月16日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          24 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">量化交易核心概念与术语详解——量化交易入门系列（三）</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <blockquote>
+<p><strong>系列</strong>: 量化交易入门<br><strong>作者</strong>: [BabyQ]<br><strong>日期</strong>: 2026-05-16<br><strong>标签</strong>: #量化交易 #Alpha #Beta #夏普比率 #风险指标</p>
+</blockquote>
+<hr>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ol>
+<li><a href="#%E4%B8%80%E6%94%B6%E7%9B%8A%E7%9B%B8%E5%85%B3%E6%8C%87%E6%A0%87">收益相关指标</a></li>
+<li><a href="#%E4%BA%8C%E9%A3%8E%E9%99%A9%E7%9B%B8%E5%85%B3%E6%8C%87%E6%A0%87">风险相关指标</a></li>
+<li><a href="#%E4%B8%89%E9%A3%8E%E9%99%A9%E8%B0%83%E6%95%B4%E6%94%B6%E7%9B%8A%E6%8C%87%E6%A0%87">风险调整收益指标</a></li>
+<li><a href="#%E5%9B%9B%E9%87%8F%E5%8C%96%E4%B8%93%E7%94%A8%E6%9C%AF%E8%AF%AD">量化专用术语</a></li>
+<li><a href="#%E4%BA%94%E4%B8%8B%E4%B8%80%E7%AF%87%E9%A2%84%E5%91%8A">下一篇预告</a></li>
+</ol>
+<hr>
+<h2 id="一、收益相关指标"><a href="#一、收益相关指标" class="headerlink" title="一、收益相关指标"></a>一、收益相关指标</h2><h3 id="1-1-年化收益率（Annualized-Return）"><a href="#1-1-年化收益率（Annualized-Return）" class="headerlink" title="1.1 年化收益率（Annualized Return）"></a>1.1 年化收益率（Annualized Return）</h3><p><strong>定义</strong>: 将不同时间周期的收益率转换为年度收益率，便于比较。</p>
+<p><strong>公式</strong>:</p>
+<figure class="highlight fix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs fix"><span class="hljs-attr">年化收益率 </span>=<span class="hljs-string"> (1 + 总收益率)^(1/年数) - 1</span><br><span class="hljs-string"></span><br><span class="hljs-string">或对于日收益率:</span><br><span class="hljs-string">年化收益率 = (1 + 日收益率)^252 - 1</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>示例</strong>:</p>
+<ul>
+<li>策略A：3个月收益10% → 年化 &#x3D; (1+0.10)^4 - 1 &#x3D; 46.4%</li>
+<li>策略B：1年收益30% → 年化 &#x3D; 30%</li>
+</ul>
+<blockquote>
+<p>⚠️ <strong>注意</strong>: 短期高收益年化后可能失真，需结合其他指标评估。</p>
+</blockquote>
+<h3 id="1-2-超额收益（Alpha-α）"><a href="#1-2-超额收益（Alpha-α）" class="headerlink" title="1.2 超额收益（Alpha, α）"></a>1.2 超额收益（Alpha, α）</h3><p><strong>定义</strong>: 跑赢基准的收益部分，即”真正的赚钱能力”。</p>
+<figure class="highlight nestedtext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs nestedtext"><span class="hljs-attribute">┌─────────────────────────────────────────┐</span><br><span class="hljs-attribute">│           收益分解                       │</span><br><span class="hljs-attribute">├─────────────────────────────────────────┤</span><br><span class="hljs-attribute">│                                         │</span><br><span class="hljs-attribute">│   总收益  =  α（超额收益）+ β（市场收益） │</span><br><span class="hljs-attribute">│                                         │</span><br><span class="hljs-attribute">│   • α &gt; 0</span><span class="hljs-punctuation">:</span> <span class="hljs-string">跑赢市场 ✅                   │</span><br><span class="hljs-attribute">│   • α = 0</span><span class="hljs-punctuation">:</span> <span class="hljs-string">与市场持平                   │</span><br><span class="hljs-attribute">│   • α &lt; 0</span><span class="hljs-punctuation">:</span> <span class="hljs-string">跑输市场 ❌                   │</span><br>│                                         │<br>└─────────────────────────────────────────┘<br></code></pre></td></tr></table></figure>
+
+<p><strong>示例</strong>:</p>
+<ul>
+<li>策略收益: 15%</li>
+<li>基准收益（沪深300）: 10%</li>
+<li>Alpha: 15% - 10% &#x3D; <strong>5%</strong> ✅</li>
+</ul>
+<h3 id="1-3-胜率（Win-Rate）"><a href="#1-3-胜率（Win-Rate）" class="headerlink" title="1.3 胜率（Win Rate）"></a>1.3 胜率（Win Rate）</h3><p><strong>定义</strong>: 盈利交易次数占总交易次数的比例。</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs abnf">胜率 <span class="hljs-operator">=</span> 盈利交易次数 / 总交易次数 × <span class="hljs-number">100</span>%<br></code></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>胜率水平</th>
+<th>评价</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&gt; 60%</td>
+<td>优秀</td>
+</tr>
+<tr>
+<td>50-60%</td>
+<td>良好</td>
+</tr>
+<tr>
+<td>40-50%</td>
+<td>一般（需高盈亏比弥补）</td>
+</tr>
+<tr>
+<td>&lt; 40%</td>
+<td>较差（除非盈亏比极高）</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>💡 <strong>注意</strong>: 高胜率不等于高收益。胜率40%但盈亏比3:1的策略，长期可能盈利。</p>
+</blockquote>
+<h3 id="1-4-盈亏比（Profit-Loss-Ratio）"><a href="#1-4-盈亏比（Profit-Loss-Ratio）" class="headerlink" title="1.4 盈亏比（Profit&#x2F;Loss Ratio）"></a>1.4 盈亏比（Profit&#x2F;Loss Ratio）</h3><p><strong>定义</strong>: 平均盈利金额与平均亏损金额的比值。</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs abnf">盈亏比 <span class="hljs-operator">=</span> 平均盈利 / 平均亏损<br></code></pre></td></tr></table></figure>
+
+<p><strong>示例</strong>:</p>
+<ul>
+<li>平均盈利: ¥300</li>
+<li>平均亏损: ¥100</li>
+<li>盈亏比: 3:1</li>
+</ul>
+<p><strong>盈亏比与胜率的关系</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>胜率</th>
+<th>所需盈亏比（盈亏平衡）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>80%</td>
+<td>0.25:1</td>
+</tr>
+<tr>
+<td>60%</td>
+<td>0.67:1</td>
+</tr>
+<tr>
+<td>50%</td>
+<td>1:1</td>
+</tr>
+<tr>
+<td>40%</td>
+<td>1.5:1</td>
+</tr>
+<tr>
+<td>30%</td>
+<td>2.33:1</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="二、风险相关指标"><a href="#二、风险相关指标" class="headerlink" title="二、风险相关指标"></a>二、风险相关指标</h2><h3 id="2-1-波动率（Volatility）"><a href="#2-1-波动率（Volatility）" class="headerlink" title="2.1 波动率（Volatility）"></a>2.1 波动率（Volatility）</h3><p><strong>定义</strong>: 收益率的标准差，衡量收益的波动程度。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs powershell">σ = √(Σ(<span class="hljs-built_in">Ri</span> - <span class="hljs-built_in">R</span>̄)² / (n<span class="hljs-literal">-1</span>))<br><br>其中:<br><span class="hljs-built_in">Ri</span> = 第i期收益率<br><span class="hljs-built_in">R</span>̄ = 平均收益率<br>n = 期数<br></code></pre></td></tr></table></figure>
+
+<p><strong>年化波动率</strong>:</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs abnf">年化波动率 <span class="hljs-operator">=</span> 日波动率 × √<span class="hljs-number">252</span><br></code></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>波动率水平</th>
+<th>评价</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&lt; 10%</td>
+<td>低风险</td>
+</tr>
+<tr>
+<td>10-20%</td>
+<td>中等风险</td>
+</tr>
+<tr>
+<td>20-30%</td>
+<td>较高风险</td>
+</tr>
+<tr>
+<td>&gt; 30%</td>
+<td>高风险</td>
+</tr>
+</tbody></table>
+<h3 id="2-2-最大回撤（Max-Drawdown）"><a href="#2-2-最大回撤（Max-Drawdown）" class="headerlink" title="2.2 最大回撤（Max Drawdown）"></a>2.2 最大回撤（Max Drawdown）</h3><p><strong>定义</strong>: 从峰值到谷底的最大亏损幅度，衡量最坏情况下的亏损。</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs abnf">最大回撤 <span class="hljs-operator">=</span> (峰值 - 谷底) / 峰值 × <span class="hljs-number">100</span>%<br></code></pre></td></tr></table></figure>
+
+<p><strong>示例</strong>:</p>
+<figure class="highlight erlang-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs erlang-repl">净值曲线:<br><span class="hljs-number">100</span> → <span class="hljs-number">120</span>（峰值）→ <span class="hljs-number">90</span>（谷底）→ <span class="hljs-number">110</span><br><br>最大回撤 = (<span class="hljs-number">120</span> - <span class="hljs-number">90</span>) / <span class="hljs-number">120</span> = <span class="hljs-number">25</span><span class="hljs-comment">%</span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>⚠️ <strong>重要性</strong>: 最大回撤直接影响投资者的心理承受能力和策略容量。</p>
+</blockquote>
+<h3 id="2-3-回撤恢复期（Drawdown-Duration）"><a href="#2-3-回撤恢复期（Drawdown-Duration）" class="headerlink" title="2.3 回撤恢复期（Drawdown Duration）"></a>2.3 回撤恢复期（Drawdown Duration）</h3><p><strong>定义</strong>: 从回撤谷底恢复到前期峰值所需的时间。</p>
+<table>
+<thead>
+<tr>
+<th>恢复期</th>
+<th>评价</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&lt; 3个月</td>
+<td>优秀</td>
+</tr>
+<tr>
+<td>3-6个月</td>
+<td>良好</td>
+</tr>
+<tr>
+<td>6-12个月</td>
+<td>一般</td>
+</tr>
+<tr>
+<td>&gt; 12个月</td>
+<td>较差</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="三、风险调整收益指标"><a href="#三、风险调整收益指标" class="headerlink" title="三、风险调整收益指标"></a>三、风险调整收益指标</h2><h3 id="3-1-夏普比率（Sharpe-Ratio）⭐"><a href="#3-1-夏普比率（Sharpe-Ratio）⭐" class="headerlink" title="3.1 夏普比率（Sharpe Ratio）⭐"></a>3.1 夏普比率（Sharpe Ratio）⭐</h3><p><strong>定义</strong>: 每承担一单位风险所获得的超额收益。</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs makefile">夏普比率 = (Rp - Rf) / σp<br><br><span class="hljs-section">其中:</span><br>Rp = 策略年化收益率<br>Rf = 无风险利率（通常用国债收益率，约2-3%）<br>σp = 策略收益的年化标准差<br></code></pre></td></tr></table></figure>
+
+<p><strong>评价标准</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>夏普比率</th>
+<th>评价</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&lt; 1.0</td>
+<td>较差</td>
+</tr>
+<tr>
+<td>1.0 - 2.0</td>
+<td>良好</td>
+</tr>
+<tr>
+<td>2.0 - 3.0</td>
+<td>优秀</td>
+</tr>
+<tr>
+<td>&gt; 3.0</td>
+<td>卓越（罕见）</td>
+</tr>
+</tbody></table>
+<p><strong>示例</strong>:</p>
+<ul>
+<li>策略年化收益: 20%</li>
+<li>无风险利率: 3%</li>
+<li>年化波动率: 15%</li>
+<li>夏普比率 &#x3D; (20% - 3%) &#x2F; 15% &#x3D; <strong>1.13</strong> ✅</li>
+</ul>
+<h3 id="3-2-卡玛比率（Calmar-Ratio）"><a href="#3-2-卡玛比率（Calmar-Ratio）" class="headerlink" title="3.2 卡玛比率（Calmar Ratio）"></a>3.2 卡玛比率（Calmar Ratio）</h3><p><strong>定义</strong>: 年化收益率与最大回撤的比值。</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs abnf">卡玛比率 <span class="hljs-operator">=</span> 年化收益率 / 最大回撤<br></code></pre></td></tr></table></figure>
+
+<p><strong>评价标准</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>卡玛比率</th>
+<th>评价</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&lt; 1.0</td>
+<td>较差</td>
+</tr>
+<tr>
+<td>1.0 - 2.0</td>
+<td>良好</td>
+</tr>
+<tr>
+<td>2.0 - 3.0</td>
+<td>优秀</td>
+</tr>
+<tr>
+<td>&gt; 3.0</td>
+<td>卓越</td>
+</tr>
+</tbody></table>
+<p><strong>示例</strong>:</p>
+<ul>
+<li>年化收益: 30%</li>
+<li>最大回撤: 15%</li>
+<li>卡玛比率 &#x3D; 30% &#x2F; 15% &#x3D; <strong>2.0</strong> ✅</li>
+</ul>
+<h3 id="3-3-索提诺比率（Sortino-Ratio）"><a href="#3-3-索提诺比率（Sortino-Ratio）" class="headerlink" title="3.3 索提诺比率（Sortino Ratio）"></a>3.3 索提诺比率（Sortino Ratio）</h3><p><strong>定义</strong>: 与夏普比率类似，但只考虑下行风险。</p>
+<figure class="highlight fix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs fix"><span class="hljs-attr">索提诺比率 </span>=<span class="hljs-string"> (Rp - Rf) / σd</span><br><span class="hljs-string"></span><br><span class="hljs-string">其中:</span><br><span class="hljs-string">σd = 下行标准差（只计算亏损时的波动）</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>优势</strong>: 比夏普比率更合理，因为投资者只关心下行风险。</p>
+<h3 id="3-4-收益风险指标对比"><a href="#3-4-收益风险指标对比" class="headerlink" title="3.4 收益风险指标对比"></a>3.4 收益风险指标对比</h3><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>公式</th>
+<th>侧重点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>夏普比率</strong></td>
+<td>(收益-无风险利率)&#x2F;总波动</td>
+<td>总风险调整收益</td>
+</tr>
+<tr>
+<td><strong>卡玛比率</strong></td>
+<td>年化收益&#x2F;最大回撤</td>
+<td>极端风险调整收益</td>
+</tr>
+<tr>
+<td><strong>索提诺比率</strong></td>
+<td>(收益-无风险利率)&#x2F;下行波动</td>
+<td>下行风险调整收益</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="四、量化专用术语"><a href="#四、量化专用术语" class="headerlink" title="四、量化专用术语"></a>四、量化专用术语</h2><h3 id="4-1-基础术语"><a href="#4-1-基础术语" class="headerlink" title="4.1 基础术语"></a>4.1 基础术语</h3><table>
+<thead>
+<tr>
+<th>术语</th>
+<th>英文</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>因子（Factor）</strong></td>
+<td>Factor</td>
+<td>能解释资产收益差异的变量</td>
+</tr>
+<tr>
+<td><strong>信号（Signal）</strong></td>
+<td>Signal</td>
+<td>触发交易决策的指标或条件</td>
+</tr>
+<tr>
+<td><strong>回测（Backtest）</strong></td>
+<td>Backtest</td>
+<td>在历史数据上模拟策略表现</td>
+</tr>
+<tr>
+<td><strong>滑点（Slippage）</strong></td>
+<td>Slippage</td>
+<td>下单价格与实际成交价格的差异</td>
+</tr>
+<tr>
+<td><strong>换手率（Turnover）</strong></td>
+<td>Turnover</td>
+<td>一段时间内交易金额&#x2F;总资产</td>
+</tr>
+</tbody></table>
+<h3 id="4-2-风险术语"><a href="#4-2-风险术语" class="headerlink" title="4.2 风险术语"></a>4.2 风险术语</h3><table>
+<thead>
+<tr>
+<th>术语</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>过拟合（Overfitting）</strong></td>
+<td>策略过度适应历史数据，泛化能力差</td>
+</tr>
+<tr>
+<td><strong>前视偏差（Look-ahead Bias）</strong></td>
+<td>回测中使用了未来才知道的信息</td>
+</tr>
+<tr>
+<td><strong>幸存者偏差（Survivorship Bias）</strong></td>
+<td>只考虑存活下来的样本，忽略已退市的</td>
+</tr>
+<tr>
+<td><strong>曲线拟合（Curve Fitting）</strong></td>
+<td>用过多参数拟合历史数据</td>
+</tr>
+<tr>
+<td><strong>数据挖掘偏差（Data Mining Bias）</strong></td>
+<td>通过大量尝试偶然发现”有效”策略</td>
+</tr>
+</tbody></table>
+<h3 id="4-3-策略术语"><a href="#4-3-策略术语" class="headerlink" title="4.3 策略术语"></a>4.3 策略术语</h3><table>
+<thead>
+<tr>
+<th>术语</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>多头（Long）</strong></td>
+<td>买入持有，预期上涨</td>
+</tr>
+<tr>
+<td><strong>空头（Short）</strong></td>
+<td>借入卖出，预期下跌</td>
+</tr>
+<tr>
+<td><strong>对冲（Hedge）</strong></td>
+<td>用相反头寸降低风险</td>
+</tr>
+<tr>
+<td><strong>杠杆（Leverage）</strong></td>
+<td>借入资金放大收益&#x2F;亏损</td>
+</tr>
+<tr>
+<td><strong>保证金（Margin）</strong></td>
+<td>交易所需的抵押资金</td>
+</tr>
+</tbody></table>
+<h3 id="4-4-Beta（β）详解"><a href="#4-4-Beta（β）详解" class="headerlink" title="4.4 Beta（β）详解"></a>4.4 Beta（β）详解</h3><p><strong>定义</strong>: 衡量资产相对于市场的系统性风险。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs powershell">β = Cov(<span class="hljs-built_in">Ri</span>, <span class="hljs-built_in">Rm</span>) / Var(<span class="hljs-built_in">Rm</span>)<br><br>其中:<br><span class="hljs-built_in">Ri</span> = 资产收益率<br><span class="hljs-built_in">Rm</span> = 市场收益率<br></code></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>Beta值</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>β &#x3D; 1</td>
+<td>与市场同步波动</td>
+</tr>
+<tr>
+<td>β &gt; 1</td>
+<td>比市场波动更大（激进）</td>
+</tr>
+<tr>
+<td>β &lt; 1</td>
+<td>比市场波动更小（保守）</td>
+</tr>
+<tr>
+<td>β &#x3D; 0</td>
+<td>与市场无关</td>
+</tr>
+<tr>
+<td>β &lt; 0</td>
+<td>与市场反向波动（罕见）</td>
+</tr>
+</tbody></table>
+<p><strong>示例</strong>:</p>
+<ul>
+<li>某股票β&#x3D;1.5，市场涨10%，股票涨15%</li>
+<li>某股票β&#x3D;0.5，市场跌10%，股票跌5%</li>
+</ul>
+<hr>
+<h2 id="五、下一篇预告"><a href="#五、下一篇预告" class="headerlink" title="五、下一篇预告"></a>五、下一篇预告</h2><p>在下一篇文章中，我们将介绍量化交易的<strong>主要策略类型</strong>，包括趋势跟踪、均值回归、因子投资等六大类策略，帮助你了解不同策略的逻辑和适用场景。</p>
+<blockquote>
+<p>📌 <strong>下一篇</strong>: [量化策略的主要类型]</p>
+</blockquote>
+<hr>
+<blockquote>
+<p><strong>系列导航</strong>:</p>
+<ul>
+<li><a href="02-quant-vs-discretionary.md">上一篇: 量化交易 vs 主观交易</a></li>
+<li><a href="04-strategy-types.md">下一篇: 量化策略的主要类型</a></li>
+</ul>
+</blockquote>
+<hr>
+<blockquote>
+<p><strong>免责声明</strong>: 本文仅供学习交流，不构成投资建议。量化交易有风险，入市需谨慎。</p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Quantitative-Trading/" class="category-chain-item">Quantitative Trading</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93/" class="print-no-link">#量化交易</a>
+      
+        <a href="/tags/Alpha/" class="print-no-link">#Alpha</a>
+      
+        <a href="/tags/Beta/" class="print-no-link">#Beta</a>
+      
+        <a href="/tags/%E5%A4%8F%E6%99%AE%E6%AF%94%E7%8E%87/" class="print-no-link">#夏普比率</a>
+      
+        <a href="/tags/%E9%A3%8E%E9%99%A9%E6%8C%87%E6%A0%87/" class="print-no-link">#风险指标</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>量化交易核心概念与术语详解——量化交易入门系列（三）</div>
+      <div>https://littlebabyq.github.io/2026/05/16/Quantitative Trading/03-core-concepts/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>BabyQ</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年5月16日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/05/16/Quantitative%20Trading/01-what-is-quantitative-trading/" title="什么是量化交易？——量化交易入门系列（一）">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">什么是量化交易？——量化交易入门系列（一）</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/05/16/Quantitative%20Trading/02-quant-vs-discretionary/" title="量化交易 vs 主观交易：哪种更适合你？——量化交易入门系列（二）">
+                        <span class="hidden-mobile">量化交易 vs 主观交易：哪种更适合你？——量化交易入门系列（二）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

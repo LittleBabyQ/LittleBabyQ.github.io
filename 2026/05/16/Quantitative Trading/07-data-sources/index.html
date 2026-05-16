@@ -1,0 +1,1178 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="BabyQ">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="系列: 量化交易入门作者: [BabyQ]日期: 2026-05-16标签: #量化交易 #数据源 #行情数据 #基本面数据 #另类数据   目录 数据类型概览 免费数据源 付费数据源 数据获取实践 数据质量评估 下一篇预告   一、数据类型概览1.1 数据分类12345678910111213141516┌─────────────────────────────────────────┐│">
+<meta property="og:type" content="article">
+<meta property="og:title" content="量化交易的数据源与数据类型——量化交易入门系列（七）">
+<meta property="og:url" content="https://littlebabyq.github.io/2026/05/16/Quantitative%20Trading/07-data-sources/index.html">
+<meta property="og:site_name" content="BabyQ Blog">
+<meta property="og:description" content="系列: 量化交易入门作者: [BabyQ]日期: 2026-05-16标签: #量化交易 #数据源 #行情数据 #基本面数据 #另类数据   目录 数据类型概览 免费数据源 付费数据源 数据获取实践 数据质量评估 下一篇预告   一、数据类型概览1.1 数据分类12345678910111213141516┌─────────────────────────────────────────┐│">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-05-16T02:00:00.000Z">
+<meta property="article:modified_time" content="2026-05-16T07:57:26.991Z">
+<meta property="article:author" content="BabyQ">
+<meta property="article:tag" content="另类数据">
+<meta property="article:tag" content="基本面数据">
+<meta property="article:tag" content="数据源">
+<meta property="article:tag" content="行情数据">
+<meta property="article:tag" content="量化交易">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>量化交易的数据源与数据类型——量化交易入门系列（七） - BabyQ Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"littlebabyq.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>BabyQ&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/bg2.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="量化交易的数据源与数据类型——量化交易入门系列（七）"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-05-16 10:00" pubdate>
+          2026年5月16日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          45 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">量化交易的数据源与数据类型——量化交易入门系列（七）</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <blockquote>
+<p><strong>系列</strong>: 量化交易入门<br><strong>作者</strong>: [BabyQ]<br><strong>日期</strong>: 2026-05-16<br><strong>标签</strong>: #量化交易 #数据源 #行情数据 #基本面数据 #另类数据</p>
+</blockquote>
+<hr>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ol>
+<li><a href="#%E4%B8%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E6%A6%82%E8%A7%88">数据类型概览</a></li>
+<li><a href="#%E4%BA%8C%E5%85%8D%E8%B4%B9%E6%95%B0%E6%8D%AE%E6%BA%90">免费数据源</a></li>
+<li><a href="#%E4%B8%89%E4%BB%98%E8%B4%B9%E6%95%B0%E6%8D%AE%E6%BA%90">付费数据源</a></li>
+<li><a href="#%E5%9B%9B%E6%95%B0%E6%8D%AE%E8%8E%B7%E5%8F%96%E5%AE%9E%E8%B7%B5">数据获取实践</a></li>
+<li><a href="#%E4%BA%94%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0">数据质量评估</a></li>
+<li><a href="#%E5%85%AD%E4%B8%8B%E4%B8%80%E7%AF%87%E9%A2%84%E5%91%8A">下一篇预告</a></li>
+</ol>
+<hr>
+<h2 id="一、数据类型概览"><a href="#一、数据类型概览" class="headerlink" title="一、数据类型概览"></a>一、数据类型概览</h2><h3 id="1-1-数据分类"><a href="#1-1-数据分类" class="headerlink" title="1.1 数据分类"></a>1.1 数据分类</h3><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs armasm">┌─────────────────────────────────────────┐<br>│           量化交易数据分类               │<br>├─────────────────────────────────────────┤<br>│                                         │<br>│  传统数据                                │<br>│  ├── 行情数据（价格、成交量）             │<br>│  ├── 基本面数据（财务报表）               │<br>│  └── 宏观数据（GDP、利率）                │<br>│                                         │<br>│  另类数据（Alternative <span class="hljs-meta">Data</span>）            │<br>│  ├── 情绪数据（新闻、社交媒体）           │<br>│  ├── 行为数据（搜索指数、APP使用）        │<br>│  ├── 物联网数据（卫星图像、船运）         │<br>│  └── 消费数据（信用卡、POS机）            │<br>│                                         │<br>└─────────────────────────────────────────┘<br></code></pre></td></tr></table></figure>
+
+<h3 id="1-2-各类数据详解"><a href="#1-2-各类数据详解" class="headerlink" title="1.2 各类数据详解"></a>1.2 各类数据详解</h3><table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>内容</th>
+<th>频率</th>
+<th>用途</th>
+<th>获取难度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>行情数据</strong></td>
+<td>OHLCV、买卖盘、Tick</td>
+<td>实时&#x2F;日</td>
+<td>技术分析、回测</td>
+<td>易</td>
+</tr>
+<tr>
+<td><strong>基本面数据</strong></td>
+<td>财务报表、估值指标</td>
+<td>季度&#x2F;年</td>
+<td>因子投资</td>
+<td>中</td>
+</tr>
+<tr>
+<td><strong>宏观数据</strong></td>
+<td>GDP、CPI、利率、汇率</td>
+<td>月度&#x2F;季</td>
+<td>宏观策略</td>
+<td>易</td>
+</tr>
+<tr>
+<td><strong>情绪数据</strong></td>
+<td>新闻情绪、社交媒体</td>
+<td>实时</td>
+<td>事件驱动</td>
+<td>难</td>
+</tr>
+<tr>
+<td><strong>另类数据</strong></td>
+<td>卫星、船运、信用卡</td>
+<td>不定期</td>
+<td>特殊策略</td>
+<td>难</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="二、免费数据源"><a href="#二、免费数据源" class="headerlink" title="二、免费数据源"></a>二、免费数据源</h2><h3 id="2-1-美股数据"><a href="#2-1-美股数据" class="headerlink" title="2.1 美股数据"></a>2.1 美股数据</h3><table>
+<thead>
+<tr>
+<th>数据源</th>
+<th>覆盖范围</th>
+<th>数据类型</th>
+<th>限制</th>
+<th>Python库</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Yahoo Finance</strong></td>
+<td>美股、ETF、期货</td>
+<td>日线、分钟线</td>
+<td>有延迟、有限流</td>
+<td><code>yfinance</code></td>
+</tr>
+<tr>
+<td><strong>Alpha Vantage</strong></td>
+<td>美股</td>
+<td>日线、分钟线</td>
+<td>API限制（5次&#x2F;分钟）</td>
+<td><code>alpha_vantage</code></td>
+</tr>
+<tr>
+<td><strong>FRED</strong></td>
+<td>美国经济数据</td>
+<td>宏观数据</td>
+<td>免费</td>
+<td><code>pandas_datareader</code></td>
+</tr>
+<tr>
+<td><strong>Quandl&#x2F;NASDAQ Data Link</strong></td>
+<td>全球</td>
+<td>多类型</td>
+<td>部分免费</td>
+<td><code>quandl</code></td>
+</tr>
+</tbody></table>
+<p><strong>Yahoo Finance示例</strong>:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> yfinance <span class="hljs-keyword">as</span> yf<br><br><span class="hljs-comment"># 获取单只股票数据</span><br>data = yf.download(<span class="hljs-string">&#x27;AAPL&#x27;</span>, start=<span class="hljs-string">&#x27;2020-01-01&#x27;</span>, end=<span class="hljs-string">&#x27;2024-01-01&#x27;</span>)<br><br><span class="hljs-comment"># 获取多只股票</span><br>data = yf.download([<span class="hljs-string">&#x27;AAPL&#x27;</span>, <span class="hljs-string">&#x27;GOOGL&#x27;</span>, <span class="hljs-string">&#x27;MSFT&#x27;</span>], start=<span class="hljs-string">&#x27;2020-01-01&#x27;</span>)<br><br><span class="hljs-comment"># 获取分钟数据（限制7天内）</span><br>data = yf.download(<span class="hljs-string">&#x27;AAPL&#x27;</span>, period=<span class="hljs-string">&#x27;5d&#x27;</span>, interval=<span class="hljs-string">&#x27;1m&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-2-A股数据"><a href="#2-2-A股数据" class="headerlink" title="2.2 A股数据"></a>2.2 A股数据</h3><table>
+<thead>
+<tr>
+<th>数据源</th>
+<th>覆盖范围</th>
+<th>数据类型</th>
+<th>限制</th>
+<th>Python库</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>AKShare</strong></td>
+<td>A股、期货、期权、基金</td>
+<td>多类型</td>
+<td>免费</td>
+<td><code>akshare</code></td>
+</tr>
+<tr>
+<td><strong>Tushare</strong></td>
+<td>A股</td>
+<td>多类型</td>
+<td>积分制</td>
+<td><code>tushare</code></td>
+</tr>
+<tr>
+<td><strong>Baostock</strong></td>
+<td>A股</td>
+<td>日线、分钟线</td>
+<td>免费</td>
+<td><code>baostock</code></td>
+</tr>
+<tr>
+<td><strong>JoinQuant&#x2F;聚宽</strong></td>
+<td>A股</td>
+<td>多类型</td>
+<td>免费（有限制）</td>
+<td>Web平台</td>
+</tr>
+</tbody></table>
+<p><strong>AKShare示例</strong>:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> akshare <span class="hljs-keyword">as</span> ak<br><br><span class="hljs-comment"># 获取A股历史行情</span><br>stock_data = ak.stock_zh_a_hist(symbol=<span class="hljs-string">&quot;600519&quot;</span>,  <span class="hljs-comment"># 贵州茅台</span><br>                                period=<span class="hljs-string">&quot;daily&quot;</span>,<br>                                start_date=<span class="hljs-string">&quot;20200101&quot;</span>, <br>                                end_date=<span class="hljs-string">&quot;20240101&quot;</span>)<br><br><span class="hljs-comment"># 获取实时行情</span><br>realtime = ak.stock_zh_a_spot()<br><br><span class="hljs-comment"># 获取财务数据</span><br>finance = ak.stock_financial_report_sina(stock=<span class="hljs-string">&quot;600519&quot;</span>, symbol=<span class="hljs-string">&quot;利润表&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p><strong>Tushare示例</strong>:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> tushare <span class="hljs-keyword">as</span> ts<br><br><span class="hljs-comment"># 设置Token（需注册获取）</span><br>ts.set_token(<span class="hljs-string">&#x27;your_token_here&#x27;</span>)<br>pro = ts.pro_api()<br><br><span class="hljs-comment"># 获取日线数据</span><br>df = pro.daily(ts_code=<span class="hljs-string">&#x27;600519.SH&#x27;</span>, start_date=<span class="hljs-string">&#x27;20200101&#x27;</span>, end_date=<span class="hljs-string">&#x27;20240101&#x27;</span>)<br><br><span class="hljs-comment"># 获取财务数据</span><br>income = pro.income(ts_code=<span class="hljs-string">&#x27;600519.SH&#x27;</span>, start_date=<span class="hljs-string">&#x27;20200101&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-3-加密货币数据"><a href="#2-3-加密货币数据" class="headerlink" title="2.3 加密货币数据"></a>2.3 加密货币数据</h3><table>
+<thead>
+<tr>
+<th>数据源</th>
+<th>覆盖范围</th>
+<th>数据类型</th>
+<th>Python库</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>CCXT</strong></td>
+<td>多交易所</td>
+<td>行情、交易</td>
+<td><code>ccxt</code></td>
+</tr>
+<tr>
+<td><strong>Binance API</strong></td>
+<td>币安</td>
+<td>行情、交易</td>
+<td><code>python-binance</code></td>
+</tr>
+</tbody></table>
+<p><strong>CCXT示例</strong>:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> ccxt<br><br><span class="hljs-comment"># 连接交易所</span><br>exchange = ccxt.binance()<br><br><span class="hljs-comment"># 获取OHLCV数据</span><br>ohlcv = exchange.fetch_ohlcv(<span class="hljs-string">&#x27;BTC/USDT&#x27;</span>, timeframe=<span class="hljs-string">&#x27;1d&#x27;</span>, limit=<span class="hljs-number">100</span>)<br><br><span class="hljs-comment"># 转换为DataFrame</span><br><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br>df = pd.DataFrame(ohlcv, columns=[<span class="hljs-string">&#x27;timestamp&#x27;</span>, <span class="hljs-string">&#x27;open&#x27;</span>, <span class="hljs-string">&#x27;high&#x27;</span>, <span class="hljs-string">&#x27;low&#x27;</span>, <span class="hljs-string">&#x27;close&#x27;</span>, <span class="hljs-string">&#x27;volume&#x27;</span>])<br>df[<span class="hljs-string">&#x27;timestamp&#x27;</span>] = pd.to_datetime(df[<span class="hljs-string">&#x27;timestamp&#x27;</span>], unit=<span class="hljs-string">&#x27;ms&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-4-免费数据源对比"><a href="#2-4-免费数据源对比" class="headerlink" title="2.4 免费数据源对比"></a>2.4 免费数据源对比</h3><table>
+<thead>
+<tr>
+<th>数据源</th>
+<th>优点</th>
+<th>缺点</th>
+<th>推荐指数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>AKShare</strong></td>
+<td>免费、A股全面、更新快</td>
+<td>偶尔接口变动</td>
+<td>⭐⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td><strong>Yahoo Finance</strong></td>
+<td>免费、全球覆盖</td>
+<td>A股数据不全</td>
+<td>⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td><strong>Tushare</strong></td>
+<td>数据质量高</td>
+<td>积分限制</td>
+<td>⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td><strong>Baostock</strong></td>
+<td>完全免费</td>
+<td>数据更新慢</td>
+<td>⭐⭐⭐</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="三、付费数据源"><a href="#三、付费数据源" class="headerlink" title="三、付费数据源"></a>三、付费数据源</h2><h3 id="3-1-机构级数据源"><a href="#3-1-机构级数据源" class="headerlink" title="3.1 机构级数据源"></a>3.1 机构级数据源</h3><table>
+<thead>
+<tr>
+<th>数据源</th>
+<th>特点</th>
+<th>价格区间</th>
+<th>适用对象</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Wind (万得)</strong></td>
+<td>A股最全面</td>
+<td>¥5-10万&#x2F;年</td>
+<td>机构</td>
+</tr>
+<tr>
+<td><strong>Bloomberg</strong></td>
+<td>全球、实时</td>
+<td>$2-3万&#x2F;年</td>
+<td>大型机构</td>
+</tr>
+<tr>
+<td><strong>Refinitiv</strong></td>
+<td>机构级</td>
+<td>昂贵</td>
+<td>机构</td>
+</tr>
+<tr>
+<td><strong>IQFeed</strong></td>
+<td>美股实时</td>
+<td>$90&#x2F;月</td>
+<td>专业交易者</td>
+</tr>
+<tr>
+<td><strong>Polygon.io</strong></td>
+<td>美股API友好</td>
+<td>$199&#x2F;月</td>
+<td>开发者</td>
+</tr>
+</tbody></table>
+<h3 id="3-2-付费-vs-免费对比"><a href="#3-2-付费-vs-免费对比" class="headerlink" title="3.2 付费 vs 免费对比"></a>3.2 付费 vs 免费对比</h3><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>免费数据</th>
+<th>付费数据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>实时性</strong></td>
+<td>延迟15分钟-1天</td>
+<td>实时</td>
+</tr>
+<tr>
+<td><strong>完整性</strong></td>
+<td>基础数据</td>
+<td>完整数据（包括逐笔）</td>
+</tr>
+<tr>
+<td><strong>准确性</strong></td>
+<td>一般</td>
+<td>高</td>
+</tr>
+<tr>
+<td><strong>稳定性</strong></td>
+<td>偶尔中断</td>
+<td>高可用</td>
+</tr>
+<tr>
+<td><strong>支持</strong></td>
+<td>社区支持</td>
+<td>专业客服</td>
+</tr>
+<tr>
+<td><strong>成本</strong></td>
+<td>免费</td>
+<td>昂贵</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>💡 <strong>建议</strong>: 初学者先用免费数据，策略验证有效后再考虑付费数据。</p>
+</blockquote>
+<hr>
+<h2 id="四、数据获取实践"><a href="#四、数据获取实践" class="headerlink" title="四、数据获取实践"></a>四、数据获取实践</h2><h3 id="4-1-构建数据获取类"><a href="#4-1-构建数据获取类" class="headerlink" title="4.1 构建数据获取类"></a>4.1 构建数据获取类</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br><span class="hljs-keyword">import</span> yfinance <span class="hljs-keyword">as</span> yf<br><span class="hljs-keyword">import</span> akshare <span class="hljs-keyword">as</span> ak<br><span class="hljs-keyword">from</span> abc <span class="hljs-keyword">import</span> ABC, abstractmethod<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">DataSource</span>(<span class="hljs-title class_ inherited__">ABC</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;数据源抽象基类&quot;&quot;&quot;</span><br>    <br><span class="hljs-meta">    @abstractmethod</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">get_stock_data</span>(<span class="hljs-params">self, symbol, start_date, end_date</span>):<br>        <span class="hljs-keyword">pass</span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">YahooFinanceSource</span>(<span class="hljs-title class_ inherited__">DataSource</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;Yahoo Finance数据源&quot;&quot;&quot;</span><br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">get_stock_data</span>(<span class="hljs-params">self, symbol, start_date, end_date</span>):<br>        data = yf.download(symbol, start=start_date, end=end_date)<br>        <span class="hljs-keyword">return</span> data<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">AKShareSource</span>(<span class="hljs-title class_ inherited__">DataSource</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;AKShare数据源&quot;&quot;&quot;</span><br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">get_stock_data</span>(<span class="hljs-params">self, symbol, start_date, end_date</span>):<br>        data = ak.stock_zh_a_hist(symbol=symbol,<br>                                  period=<span class="hljs-string">&quot;daily&quot;</span>,<br>                                  start_date=start_date,<br>                                  end_date=end_date)<br>        data.set_index(<span class="hljs-string">&#x27;日期&#x27;</span>, inplace=<span class="hljs-literal">True</span>)<br>        <span class="hljs-keyword">return</span> data<br><br><span class="hljs-comment"># 使用示例</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_data</span>(<span class="hljs-params">source: DataSource, symbol, start_date, end_date</span>):<br>    <span class="hljs-keyword">return</span> source.get_stock_data(symbol, start_date, end_date)<br><br><span class="hljs-comment"># 获取美股数据</span><br>us_source = YahooFinanceSource()<br>aapl = get_data(us_source, <span class="hljs-string">&#x27;AAPL&#x27;</span>, <span class="hljs-string">&#x27;2020-01-01&#x27;</span>, <span class="hljs-string">&#x27;2024-01-01&#x27;</span>)<br><br><span class="hljs-comment"># 获取A股数据</span><br>cn_source = AKShareSource()<br>maotai = get_data(cn_source, <span class="hljs-string">&#x27;600519&#x27;</span>, <span class="hljs-string">&#x27;20200101&#x27;</span>, <span class="hljs-string">&#x27;20240101&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-2-数据存储"><a href="#4-2-数据存储" class="headerlink" title="4.2 数据存储"></a>4.2 数据存储</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> sqlite3<br><span class="hljs-keyword">from</span> sqlalchemy <span class="hljs-keyword">import</span> create_engine<br><br><span class="hljs-comment"># SQLite存储</span><br>engine = create_engine(<span class="hljs-string">&#x27;sqlite:///stock_data.db&#x27;</span>)<br><br><span class="hljs-comment"># 保存数据</span><br>data.to_sql(<span class="hljs-string">&#x27;aapl_daily&#x27;</span>, engine, if_exists=<span class="hljs-string">&#x27;replace&#x27;</span>, index=<span class="hljs-literal">True</span>)<br><br><span class="hljs-comment"># 读取数据</span><br>data = pd.read_sql(<span class="hljs-string">&#x27;SELECT * FROM aapl_daily&#x27;</span>, engine, index_col=<span class="hljs-string">&#x27;Date&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="五、数据质量评估"><a href="#五、数据质量评估" class="headerlink" title="五、数据质量评估"></a>五、数据质量评估</h2><h3 id="5-1-质量检查清单"><a href="#5-1-质量检查清单" class="headerlink" title="5.1 质量检查清单"></a>5.1 质量检查清单</h3><table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>方法</th>
+<th>标准</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>完整性</strong></td>
+<td>检查缺失值比例</td>
+<td>缺失率 &lt; 1%</td>
+</tr>
+<tr>
+<td><strong>一致性</strong></td>
+<td>检查价格逻辑</td>
+<td>高开低收关系正确</td>
+</tr>
+<tr>
+<td><strong>连续性</strong></td>
+<td>检查交易日连续性</td>
+<td>无异常跳空</td>
+</tr>
+<tr>
+<td><strong>准确性</strong></td>
+<td>与官方数据对比</td>
+<td>误差 &lt; 0.1%</td>
+</tr>
+<tr>
+<td><strong>时效性</strong></td>
+<td>检查最新数据日期</td>
+<td>延迟 &lt; 1天</td>
+</tr>
+</tbody></table>
+<h3 id="5-2-数据质量检查代码"><a href="#5-2-数据质量检查代码" class="headerlink" title="5.2 数据质量检查代码"></a>5.2 数据质量检查代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">check_data_quality</span>(<span class="hljs-params">df</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;检查数据质量&quot;&quot;&quot;</span><br>    report = &#123;&#125;<br>    <br>    <span class="hljs-comment"># 1. 缺失值检查</span><br>    missing_ratio = df.isnull().<span class="hljs-built_in">sum</span>() / <span class="hljs-built_in">len</span>(df)<br>    report[<span class="hljs-string">&#x27;missing&#x27;</span>] = missing_ratio[missing_ratio &gt; <span class="hljs-number">0</span>].to_dict()<br>    <br>    <span class="hljs-comment"># 2. 价格逻辑检查</span><br>    invalid_ohlc = df[(df[<span class="hljs-string">&#x27;high&#x27;</span>] &lt; df[<span class="hljs-string">&#x27;low&#x27;</span>]) | <br>                      (df[<span class="hljs-string">&#x27;high&#x27;</span>] &lt; df[<span class="hljs-string">&#x27;open&#x27;</span>]) |<br>                      (df[<span class="hljs-string">&#x27;high&#x27;</span>] &lt; df[<span class="hljs-string">&#x27;close&#x27;</span>])].index<br>    report[<span class="hljs-string">&#x27;invalid_ohlc&#x27;</span>] = <span class="hljs-built_in">len</span>(invalid_ohlc)<br>    <br>    <span class="hljs-comment"># 3. 收益率异常检查</span><br>    df[<span class="hljs-string">&#x27;returns&#x27;</span>] = df[<span class="hljs-string">&#x27;close&#x27;</span>].pct_change()<br>    extreme_returns = df[df[<span class="hljs-string">&#x27;returns&#x27;</span>].<span class="hljs-built_in">abs</span>() &gt; <span class="hljs-number">0.2</span>].index<br>    report[<span class="hljs-string">&#x27;extreme_returns&#x27;</span>] = <span class="hljs-built_in">len</span>(extreme_returns)<br>    <br>    <span class="hljs-comment"># 4. 时间连续性检查</span><br>    date_diff = pd.to_datetime(df.index).to_series().diff().dt.days<br>    gaps = date_diff[date_diff &gt; <span class="hljs-number">5</span>].index  <span class="hljs-comment"># 超过5天的间隔</span><br>    report[<span class="hljs-string">&#x27;time_gaps&#x27;</span>] = <span class="hljs-built_in">len</span>(gaps)<br>    <br>    <span class="hljs-keyword">return</span> report<br><br><span class="hljs-comment"># 使用示例</span><br>quality_report = check_data_quality(data)<br><span class="hljs-built_in">print</span>(quality_report)<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="六、下一篇预告"><a href="#六、下一篇预告" class="headerlink" title="六、下一篇预告"></a>六、下一篇预告</h2><p>在下一篇文章中，我们将介绍量化交易的<strong>风险管理</strong>，包括仓位管理、止损策略和压力测试。</p>
+<blockquote>
+<p>📌 <strong>下一篇</strong>: [风险管理]</p>
+</blockquote>
+<hr>
+<blockquote>
+<p><strong>系列导航</strong>:</p>
+<ul>
+<li><a href="06-tools-and-languages.md">上一篇: 常用工具与编程语言</a></li>
+<li><a href="08-risk-management.md">下一篇: 风险管理</a></li>
+</ul>
+</blockquote>
+<hr>
+<blockquote>
+<p><strong>免责声明</strong>: 本文仅供学习交流，不构成投资建议。量化交易有风险，入市需谨慎。</p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Quantitative-Trading/" class="category-chain-item">Quantitative Trading</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93/" class="print-no-link">#量化交易</a>
+      
+        <a href="/tags/%E6%95%B0%E6%8D%AE%E6%BA%90/" class="print-no-link">#数据源</a>
+      
+        <a href="/tags/%E8%A1%8C%E6%83%85%E6%95%B0%E6%8D%AE/" class="print-no-link">#行情数据</a>
+      
+        <a href="/tags/%E5%9F%BA%E6%9C%AC%E9%9D%A2%E6%95%B0%E6%8D%AE/" class="print-no-link">#基本面数据</a>
+      
+        <a href="/tags/%E5%8F%A6%E7%B1%BB%E6%95%B0%E6%8D%AE/" class="print-no-link">#另类数据</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>量化交易的数据源与数据类型——量化交易入门系列（七）</div>
+      <div>https://littlebabyq.github.io/2026/05/16/Quantitative Trading/07-data-sources/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>BabyQ</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年5月16日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/05/16/Quantitative%20Trading/05-workflow/" title="量化交易的工作流程——量化交易入门系列（五）">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">量化交易的工作流程——量化交易入门系列（五）</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/05/16/Quantitative%20Trading/08-risk-management/" title="量化交易的风险管理——量化交易入门系列（八）">
+                        <span class="hidden-mobile">量化交易的风险管理——量化交易入门系列（八）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

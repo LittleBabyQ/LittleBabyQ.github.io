@@ -1,0 +1,1244 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="BabyQ">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="系列: 量化交易入门作者: [BabyQ]日期: 2026-05-16标签: #量化交易 #工作流程 #回测 #实盘交易 #数据获取   目录 总体流程概览 Step 1: 数据获取 Step 2: 数据清洗 Step 3: 特征工程 Step 4: 策略回测 Step 5: 风险管理 Step 6: 实盘交易 Step 7: 监控与优化 下一篇预告   一、总体流程概览123456789101">
+<meta property="og:type" content="article">
+<meta property="og:title" content="量化交易的工作流程——量化交易入门系列（五）">
+<meta property="og:url" content="https://littlebabyq.github.io/2026/05/16/Quantitative%20Trading/05-workflow/index.html">
+<meta property="og:site_name" content="BabyQ Blog">
+<meta property="og:description" content="系列: 量化交易入门作者: [BabyQ]日期: 2026-05-16标签: #量化交易 #工作流程 #回测 #实盘交易 #数据获取   目录 总体流程概览 Step 1: 数据获取 Step 2: 数据清洗 Step 3: 特征工程 Step 4: 策略回测 Step 5: 风险管理 Step 6: 实盘交易 Step 7: 监控与优化 下一篇预告   一、总体流程概览123456789101">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-05-16T02:00:00.000Z">
+<meta property="article:modified_time" content="2026-05-16T07:55:13.653Z">
+<meta property="article:author" content="BabyQ">
+<meta property="article:tag" content="回测">
+<meta property="article:tag" content="实盘交易">
+<meta property="article:tag" content="工作流程">
+<meta property="article:tag" content="数据获取">
+<meta property="article:tag" content="量化交易">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>量化交易的工作流程——量化交易入门系列（五） - BabyQ Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"littlebabyq.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>BabyQ&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/bg2.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="量化交易的工作流程——量化交易入门系列（五）"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-05-16 10:00" pubdate>
+          2026年5月16日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          44 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">量化交易的工作流程——量化交易入门系列（五）</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <blockquote>
+<p><strong>系列</strong>: 量化交易入门<br><strong>作者</strong>: [BabyQ]<br><strong>日期</strong>: 2026-05-16<br><strong>标签</strong>: #量化交易 #工作流程 #回测 #实盘交易 #数据获取</p>
+</blockquote>
+<hr>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ol>
+<li><a href="#%E4%B8%80%E6%80%BB%E4%BD%93%E6%B5%81%E7%A8%8B%E6%A6%82%E8%A7%88">总体流程概览</a></li>
+<li><a href="#%E4%BA%8Cstep-1-%E6%95%B0%E6%8D%AE%E8%8E%B7%E5%8F%96">Step 1: 数据获取</a></li>
+<li><a href="#%E4%B8%89step-2-%E6%95%B0%E6%8D%AE%E6%B8%85%E6%B4%97">Step 2: 数据清洗</a></li>
+<li><a href="#%E5%9B%9Bstep-3-%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B">Step 3: 特征工程</a></li>
+<li><a href="#%E4%BA%94step-4-%E7%AD%96%E7%95%A5%E5%9B%9E%E6%B5%8B">Step 4: 策略回测</a></li>
+<li><a href="#%E5%85%ADstep-5-%E9%A3%8E%E9%99%A9%E7%AE%A1%E7%90%86">Step 5: 风险管理</a></li>
+<li><a href="#%E4%B8%83step-6-%E5%AE%9E%E7%9B%98%E4%BA%A4%E6%98%93">Step 6: 实盘交易</a></li>
+<li><a href="#%E5%85%ABstep-7-%E7%9B%91%E6%8E%A7%E4%B8%8E%E4%BC%98%E5%8C%96">Step 7: 监控与优化</a></li>
+<li><a href="#%E4%B9%9D%E4%B8%8B%E4%B8%80%E7%AF%87%E9%A2%84%E5%91%8A">下一篇预告</a></li>
+</ol>
+<hr>
+<h2 id="一、总体流程概览"><a href="#一、总体流程概览" class="headerlink" title="一、总体流程概览"></a>一、总体流程概览</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs">┌─────────────┐    ┌─────────────┐    ┌─────────────┐<br>│  1. 数据获取  │ → │  2. 数据清洗  │ → │  3. 特征工程  │<br>└─────────────┘    └─────────────┘    └─────────────┘<br>                                              ↓<br>┌─────────────┐    ┌─────────────┐    ┌─────────────┐<br>│  6. 实盘交易  │ ← │  5. 风险管理  │ ← │  4. 策略回测  │<br>└─────────────┘    └─────────────┘    └─────────────┘<br>       ↓<br>┌─────────────┐<br>│ 7. 监控与优化 │<br>└─────────────┘<br></code></pre></td></tr></table></figure>
+
+<p>量化交易是一个<strong>循环迭代</strong>的过程，从数据到策略再到实盘，不断优化和改进。</p>
+<hr>
+<h2 id="二、Step-1-数据获取"><a href="#二、Step-1-数据获取" class="headerlink" title="二、Step 1: 数据获取"></a>二、Step 1: 数据获取</h2><h3 id="2-1-数据类型"><a href="#2-1-数据类型" class="headerlink" title="2.1 数据类型"></a>2.1 数据类型</h3><table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>内容</th>
+<th>频率</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>行情数据</strong></td>
+<td>OHLCV、买卖盘</td>
+<td>Tick&#x2F;分钟&#x2F;日</td>
+<td>技术分析、回测</td>
+</tr>
+<tr>
+<td><strong>基本面数据</strong></td>
+<td>财务报表、估值</td>
+<td>季度&#x2F;年度</td>
+<td>因子投资</td>
+</tr>
+<tr>
+<td><strong>宏观数据</strong></td>
+<td>GDP、CPI、利率</td>
+<td>月度&#x2F;季度</td>
+<td>宏观策略</td>
+</tr>
+<tr>
+<td><strong>情绪数据</strong></td>
+<td>新闻情绪、搜索指数</td>
+<td>实时</td>
+<td>另类策略</td>
+</tr>
+<tr>
+<td><strong>另类数据</strong></td>
+<td>卫星图像、船运数据</td>
+<td>不定期</td>
+<td>特殊策略</td>
+</tr>
+</tbody></table>
+<h3 id="2-2-免费数据源"><a href="#2-2-免费数据源" class="headerlink" title="2.2 免费数据源"></a>2.2 免费数据源</h3><table>
+<thead>
+<tr>
+<th>数据源</th>
+<th>覆盖市场</th>
+<th>数据类型</th>
+<th>获取方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Yahoo Finance</strong></td>
+<td>美股、ETF</td>
+<td>日线</td>
+<td>Python yfinance库</td>
+</tr>
+<tr>
+<td><strong>AKShare</strong></td>
+<td>A股、期货、期权</td>
+<td>多类型</td>
+<td>Python akshare库</td>
+</tr>
+<tr>
+<td><strong>Tushare</strong></td>
+<td>A股</td>
+<td>多类型</td>
+<td>Python tushare库（积分制）</td>
+</tr>
+<tr>
+<td><strong>Baostock</strong></td>
+<td>A股</td>
+<td>日线、分钟线</td>
+<td>Python baostock库</td>
+</tr>
+<tr>
+<td><strong>FRED</strong></td>
+<td>美国经济数据</td>
+<td>宏观数据</td>
+<td>API免费</td>
+</tr>
+</tbody></table>
+<h3 id="2-3-数据获取示例"><a href="#2-3-数据获取示例" class="headerlink" title="2.3 数据获取示例"></a>2.3 数据获取示例</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 使用 yfinance 获取美股数据</span><br><span class="hljs-keyword">import</span> yfinance <span class="hljs-keyword">as</span> yf<br><br><span class="hljs-comment"># 获取苹果股票数据</span><br>data = yf.download(<span class="hljs-string">&#x27;AAPL&#x27;</span>, start=<span class="hljs-string">&#x27;2020-01-01&#x27;</span>, end=<span class="hljs-string">&#x27;2024-01-01&#x27;</span>)<br><span class="hljs-built_in">print</span>(data.head())<br><br><span class="hljs-comment"># 使用 AKShare 获取A股数据</span><br><span class="hljs-keyword">import</span> akshare <span class="hljs-keyword">as</span> ak<br><br><span class="hljs-comment"># 获取贵州茅台数据</span><br>stock_data = ak.stock_zh_a_hist(symbol=<span class="hljs-string">&quot;600519&quot;</span>, <br>                                period=<span class="hljs-string">&quot;daily&quot;</span>,<br>                                start_date=<span class="hljs-string">&quot;20200101&quot;</span>, <br>                                end_date=<span class="hljs-string">&quot;20240101&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="三、Step-2-数据清洗"><a href="#三、Step-2-数据清洗" class="headerlink" title="三、Step 2: 数据清洗"></a>三、Step 2: 数据清洗</h2><h3 id="3-1-常见问题"><a href="#3-1-常见问题" class="headerlink" title="3.1 常见问题"></a>3.1 常见问题</h3><table>
+<thead>
+<tr>
+<th>问题</th>
+<th>说明</th>
+<th>解决方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>缺失值</strong></td>
+<td>某些日期没有数据</td>
+<td>前向填充、插值、删除</td>
+</tr>
+<tr>
+<td><strong>异常值</strong></td>
+<td>价格突然跳变</td>
+<td>检测并修正或删除</td>
+</tr>
+<tr>
+<td><strong>复权处理</strong></td>
+<td>除权除息影响价格</td>
+<td>前复权或后复权</td>
+</tr>
+<tr>
+<td><strong>时间对齐</strong></td>
+<td>不同数据源时间戳不一致</td>
+<td>统一时间格式</td>
+</tr>
+<tr>
+<td><strong>停牌处理</strong></td>
+<td>股票暂停交易</td>
+<td>标记或填充</td>
+</tr>
+</tbody></table>
+<h3 id="3-2-数据清洗流程"><a href="#3-2-数据清洗流程" class="headerlink" title="3.2 数据清洗流程"></a>3.2 数据清洗流程</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br><span class="hljs-comment"># 1. 处理缺失值</span><br>data = data.fillna(method=<span class="hljs-string">&#x27;ffill&#x27;</span>)  <span class="hljs-comment"># 前向填充</span><br><br><span class="hljs-comment"># 2. 处理异常值（价格跳空超过20%）</span><br>data[<span class="hljs-string">&#x27;returns&#x27;</span>] = data[<span class="hljs-string">&#x27;close&#x27;</span>].pct_change()<br>data = data[data[<span class="hljs-string">&#x27;returns&#x27;</span>].<span class="hljs-built_in">abs</span>() &lt; <span class="hljs-number">0.2</span>]  <span class="hljs-comment"># 删除异常日</span><br><br><span class="hljs-comment"># 3. 复权处理（前复权）</span><br><span class="hljs-comment"># 通常数据源已提供复权价格</span><br><br><span class="hljs-comment"># 4. 检查数据完整性</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;数据时间范围: <span class="hljs-subst">&#123;data.index[<span class="hljs-number">0</span>]&#125;</span> 至 <span class="hljs-subst">&#123;data.index[-<span class="hljs-number">1</span>]&#125;</span>&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;总交易日: <span class="hljs-subst">&#123;<span class="hljs-built_in">len</span>(data)&#125;</span>&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;缺失值数量: <span class="hljs-subst">&#123;data.isnull().<span class="hljs-built_in">sum</span>().<span class="hljs-built_in">sum</span>()&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="四、Step-3-特征工程"><a href="#四、Step-3-特征工程" class="headerlink" title="四、Step 3: 特征工程"></a>四、Step 3: 特征工程</h2><h3 id="4-1-技术指标计算"><a href="#4-1-技术指标计算" class="headerlink" title="4.1 技术指标计算"></a>4.1 技术指标计算</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 移动平均线</span><br>data[<span class="hljs-string">&#x27;MA5&#x27;</span>] = data[<span class="hljs-string">&#x27;close&#x27;</span>].rolling(window=<span class="hljs-number">5</span>).mean()<br>data[<span class="hljs-string">&#x27;MA20&#x27;</span>] = data[<span class="hljs-string">&#x27;close&#x27;</span>].rolling(window=<span class="hljs-number">20</span>).mean()<br><br><span class="hljs-comment"># RSI指标</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_rsi</span>(<span class="hljs-params">prices, window=<span class="hljs-number">14</span></span>):<br>    delta = prices.diff()<br>    gain = (delta.where(delta &gt; <span class="hljs-number">0</span>, <span class="hljs-number">0</span>)).rolling(window=window).mean()<br>    loss = (-delta.where(delta &lt; <span class="hljs-number">0</span>, <span class="hljs-number">0</span>)).rolling(window=window).mean()<br>    rs = gain / loss<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">100</span> - (<span class="hljs-number">100</span> / (<span class="hljs-number">1</span> + rs))<br><br>data[<span class="hljs-string">&#x27;RSI&#x27;</span>] = calculate_rsi(data[<span class="hljs-string">&#x27;close&#x27;</span>])<br><br><span class="hljs-comment"># MACD</span><br>exp1 = data[<span class="hljs-string">&#x27;close&#x27;</span>].ewm(span=<span class="hljs-number">12</span>).mean()<br>exp2 = data[<span class="hljs-string">&#x27;close&#x27;</span>].ewm(span=<span class="hljs-number">26</span>).mean()<br>data[<span class="hljs-string">&#x27;MACD&#x27;</span>] = exp1 - exp2<br>data[<span class="hljs-string">&#x27;Signal&#x27;</span>] = data[<span class="hljs-string">&#x27;MACD&#x27;</span>].ewm(span=<span class="hljs-number">9</span>).mean()<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-2-特征选择"><a href="#4-2-特征选择" class="headerlink" title="4.2 特征选择"></a>4.2 特征选择</h3><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>相关性分析</strong></td>
+<td>删除与目标变量相关性低的特征</td>
+</tr>
+<tr>
+<td><strong>方差阈值</strong></td>
+<td>删除方差过小的特征</td>
+</tr>
+<tr>
+<td><strong>递归特征消除</strong></td>
+<td>逐步删除对模型贡献小的特征</td>
+</tr>
+<tr>
+<td><strong>L1正则化</strong></td>
+<td>自动进行特征选择</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="五、Step-4-策略回测"><a href="#五、Step-4-策略回测" class="headerlink" title="五、Step 4: 策略回测"></a>五、Step 4: 策略回测</h2><h3 id="5-1-回测框架选择"><a href="#5-1-回测框架选择" class="headerlink" title="5.1 回测框架选择"></a>5.1 回测框架选择</h3><table>
+<thead>
+<tr>
+<th>框架</th>
+<th>特点</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Backtrader</strong></td>
+<td>功能全面，社区活跃</td>
+<td>中低频策略</td>
+</tr>
+<tr>
+<td><strong>VectorBT</strong></td>
+<td>向量化回测，速度快</td>
+<td>大量参数优化</td>
+</tr>
+<tr>
+<td><strong>Zipline</strong></td>
+<td>Quantopian开源，文档好</td>
+<td>美股策略</td>
+</tr>
+<tr>
+<td><strong>QuantConnect</strong></td>
+<td>云端，多语言支持</td>
+<td>需要云计算</td>
+</tr>
+</tbody></table>
+<h3 id="5-2-Backtrader回测示例"><a href="#5-2-Backtrader回测示例" class="headerlink" title="5.2 Backtrader回测示例"></a>5.2 Backtrader回测示例</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> backtrader <span class="hljs-keyword">as</span> bt<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">DualMAStrategy</span>(bt.Strategy):<br>    params = (<br>        (<span class="hljs-string">&#x27;short_period&#x27;</span>, <span class="hljs-number">10</span>),<br>        (<span class="hljs-string">&#x27;long_period&#x27;</span>, <span class="hljs-number">30</span>),<br>    )<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-variable language_">self</span>.short_ma = bt.indicators.SMA(period=<span class="hljs-variable language_">self</span>.p.short_period)<br>        <span class="hljs-variable language_">self</span>.long_ma = bt.indicators.SMA(period=<span class="hljs-variable language_">self</span>.p.long_period)<br>        <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">next</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-variable language_">self</span>.position:  <span class="hljs-comment"># 没有持仓</span><br>            <span class="hljs-keyword">if</span> <span class="hljs-variable language_">self</span>.short_ma &gt; <span class="hljs-variable language_">self</span>.long_ma:<br>                <span class="hljs-variable language_">self</span>.buy()<br>        <span class="hljs-keyword">else</span>:  <span class="hljs-comment"># 有持仓</span><br>            <span class="hljs-keyword">if</span> <span class="hljs-variable language_">self</span>.short_ma &lt; <span class="hljs-variable language_">self</span>.long_ma:<br>                <span class="hljs-variable language_">self</span>.sell()<br><br><span class="hljs-comment"># 设置回测</span><br>cerebro = bt.Cerebro()<br>cerebro.addstrategy(DualMAStrategy)<br><br><span class="hljs-comment"># 加载数据</span><br>data = bt.feeds.YahooFinanceData(dataname=<span class="hljs-string">&#x27;AAPL&#x27;</span>, <br>                                  fromdate=datetime(<span class="hljs-number">2020</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>),<br>                                  todate=datetime(<span class="hljs-number">2024</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>))<br>cerebro.adddata(data)<br><br><span class="hljs-comment"># 设置初始资金</span><br>cerebro.broker.setcash(<span class="hljs-number">100000.0</span>)<br><br><span class="hljs-comment"># 运行回测</span><br>cerebro.run()<br>cerebro.plot()<br></code></pre></td></tr></table></figure>
+
+<h3 id="5-3-回测评价指标"><a href="#5-3-回测评价指标" class="headerlink" title="5.3 回测评价指标"></a>5.3 回测评价指标</h3><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>说明</th>
+<th>优秀标准</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>年化收益率</strong></td>
+<td>策略一年的收益率</td>
+<td>&gt; 10%</td>
+</tr>
+<tr>
+<td><strong>夏普比率</strong></td>
+<td>风险调整后收益</td>
+<td>&gt; 1.0</td>
+</tr>
+<tr>
+<td><strong>最大回撤</strong></td>
+<td>最大亏损幅度</td>
+<td>&lt; 20%</td>
+</tr>
+<tr>
+<td><strong>胜率</strong></td>
+<td>盈利交易占比</td>
+<td>&gt; 50%</td>
+</tr>
+<tr>
+<td><strong>盈亏比</strong></td>
+<td>平均盈利&#x2F;平均亏损</td>
+<td>&gt; 1.5</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="六、Step-5-风险管理"><a href="#六、Step-5-风险管理" class="headerlink" title="六、Step 5: 风险管理"></a>六、Step 5: 风险管理</h2><h3 id="6-1-风险类型"><a href="#6-1-风险类型" class="headerlink" title="6.1 风险类型"></a>6.1 风险类型</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs">┌─────────────────────────────────────────┐<br>│              量化交易风险分类             │<br>├─────────────────────────────────────────┤<br>│  市场风险      │  模型风险      │  操作风险   │<br>│  • 价格波动    │  • 过拟合      │  • 系统故障  │<br>│  • 流动性风险  │  • 模型失效    │  • 网络中断  │<br>│  • 黑天鹅事件  │  • 参数漂移    │  • 数据错误  │<br>├─────────────────────────────────────────┤<br>│  执行风险      │  合规风险                    │<br>│  • 滑点        │  • 监管变化                  │<br>│  • 市场冲击    │  • 内幕交易风险              │<br>└─────────────────────────────────────────┘<br></code></pre></td></tr></table></figure>
+
+<h3 id="6-2-仓位管理"><a href="#6-2-仓位管理" class="headerlink" title="6.2 仓位管理"></a>6.2 仓位管理</h3><p><strong>凯利公式（Kelly Criterion）</strong>:</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs abnf"><span class="hljs-attribute">f</span> <span class="hljs-operator">=</span> (p * b - q) / b<br><br><span class="hljs-attribute">f</span> <span class="hljs-operator">=</span> 最优仓位比例<br><span class="hljs-attribute">p</span> <span class="hljs-operator">=</span> 胜率<br><span class="hljs-attribute">q</span> <span class="hljs-operator">=</span> 败率 <span class="hljs-operator">=</span> <span class="hljs-number">1</span> - p<br><span class="hljs-attribute">b</span> <span class="hljs-operator">=</span> 盈亏比<br></code></pre></td></tr></table></figure>
+
+<p><strong>实际应用</strong>: 通常使用”半凯利”或”四分之一凯利”，降低风险。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">kelly_criterion</span>(<span class="hljs-params">win_rate, profit_loss_ratio</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;计算凯利公式最优仓位&quot;&quot;&quot;</span><br>    loss_rate = <span class="hljs-number">1</span> - win_rate<br>    kelly = (win_rate * profit_loss_ratio - loss_rate) / profit_loss_ratio<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">max</span>(<span class="hljs-number">0</span>, <span class="hljs-built_in">min</span>(kelly, <span class="hljs-number">1</span>))  <span class="hljs-comment"># 限制在0-1之间</span><br><br><span class="hljs-comment"># 示例</span><br>win_rate = <span class="hljs-number">0.55</span>  <span class="hljs-comment"># 胜率55%</span><br>pl_ratio = <span class="hljs-number">2.0</span>   <span class="hljs-comment"># 盈亏比2:1</span><br><br>kelly = kelly_criterion(win_rate, pl_ratio)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;凯利最优仓位: <span class="hljs-subst">&#123;kelly:<span class="hljs-number">.2</span>%&#125;</span>&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;建议半凯利仓位: <span class="hljs-subst">&#123;kelly/<span class="hljs-number">2</span>:<span class="hljs-number">.2</span>%&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<h3 id="6-3-止损策略"><a href="#6-3-止损策略" class="headerlink" title="6.3 止损策略"></a>6.3 止损策略</h3><table>
+<thead>
+<tr>
+<th>止损类型</th>
+<th>说明</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>固定比例止损</strong></td>
+<td>亏损达5%止损</td>
+<td>简单明了</td>
+</tr>
+<tr>
+<td><strong>移动止损</strong></td>
+<td>盈利后回撤10%止损</td>
+<td>保护利润</td>
+</tr>
+<tr>
+<td><strong>时间止损</strong></td>
+<td>持仓N天后无条件平仓</td>
+<td>避免长期套牢</td>
+</tr>
+<tr>
+<td><strong>波动率止损</strong></td>
+<td>基于ATR设置止损</td>
+<td>适应市场波动</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="七、Step-6-实盘交易"><a href="#七、Step-6-实盘交易" class="headerlink" title="七、Step 6: 实盘交易"></a>七、Step 6: 实盘交易</h2><h3 id="7-1-连接券商API"><a href="#7-1-连接券商API" class="headerlink" title="7.1 连接券商API"></a>7.1 连接券商API</h3><table>
+<thead>
+<tr>
+<th>券商&#x2F;平台</th>
+<th>API特点</th>
+<th>适用市场</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Interactive Brokers</strong></td>
+<td>功能全面，支持全球市场</td>
+<td>美股、期货</td>
+</tr>
+<tr>
+<td><strong>Alpaca</strong></td>
+<td>零佣金，API友好</td>
+<td>美股</td>
+</tr>
+<tr>
+<td><strong>富途&#x2F;老虎</strong></td>
+<td>中文支持好</td>
+<td>港股、美股</td>
+</tr>
+<tr>
+<td><strong>聚宽&#x2F;米筐</strong></td>
+<td>国内量化平台</td>
+<td>A股</td>
+</tr>
+<tr>
+<td><strong>币安&#x2F;OKX</strong></td>
+<td>加密货币</td>
+<td>数字货币</td>
+</tr>
+</tbody></table>
+<h3 id="7-2-实盘注意事项"><a href="#7-2-实盘注意事项" class="headerlink" title="7.2 实盘注意事项"></a>7.2 实盘注意事项</h3><table>
+<thead>
+<tr>
+<th>事项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>从小资金开始</strong></td>
+<td>先用小资金验证策略</td>
+</tr>
+<tr>
+<td><strong>模拟盘过渡</strong></td>
+<td>至少模拟盘运行1-3个月</td>
+</tr>
+<tr>
+<td><strong>监控滑点</strong></td>
+<td>实盘滑点通常比回测大</td>
+</tr>
+<tr>
+<td><strong>系统稳定性</strong></td>
+<td>确保服务器稳定，网络畅通</td>
+</tr>
+<tr>
+<td><strong>异常处理</strong></td>
+<td>设置自动止损和报警机制</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="八、Step-7-监控与优化"><a href="#八、Step-7-监控与优化" class="headerlink" title="八、Step 7: 监控与优化"></a>八、Step 7: 监控与优化</h2><h3 id="8-1-监控指标"><a href="#8-1-监控指标" class="headerlink" title="8.1 监控指标"></a>8.1 监控指标</h3><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>监控频率</th>
+<th>异常处理</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>策略收益</strong></td>
+<td>每日</td>
+<td>连续亏损超过阈值暂停</td>
+</tr>
+<tr>
+<td><strong>最大回撤</strong></td>
+<td>实时</td>
+<td>超过预设值减仓或暂停</td>
+</tr>
+<tr>
+<td><strong>胜率变化</strong></td>
+<td>每周</td>
+<td>胜率显著下降检查策略</td>
+</tr>
+<tr>
+<td><strong>滑点情况</strong></td>
+<td>每笔交易</td>
+<td>滑点过大检查执行逻辑</td>
+</tr>
+<tr>
+<td><strong>系统状态</strong></td>
+<td>实时</td>
+<td>故障自动切换备用系统</td>
+</tr>
+</tbody></table>
+<h3 id="8-2-策略优化"><a href="#8-2-策略优化" class="headerlink" title="8.2 策略优化"></a>8.2 策略优化</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs">┌─────────────────────────────────────────┐<br>│           策略优化循环                   │<br>├─────────────────────────────────────────┤<br>│                                         │<br>│  监控表现 → 发现问题 → 分析原因          │<br>│      ↑                    ↓             │<br>│  验证效果 ← 调整策略 ← 制定方案          │<br>│                                         │<br>└─────────────────────────────────────────┘<br></code></pre></td></tr></table></figure>
+
+<h3 id="8-3-策略失效判断"><a href="#8-3-策略失效判断" class="headerlink" title="8.3 策略失效判断"></a>8.3 策略失效判断</h3><table>
+<thead>
+<tr>
+<th>现象</th>
+<th>可能原因</th>
+<th>应对措施</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>连续亏损</td>
+<td>市场环境变化</td>
+<td>暂停，分析原因</td>
+</tr>
+<tr>
+<td>回撤超预期</td>
+<td>策略过拟合</td>
+<td>简化策略，重新训练</td>
+</tr>
+<tr>
+<td>胜率骤降</td>
+<td>竞争加剧</td>
+<td>寻找新的Alpha</td>
+</tr>
+<tr>
+<td>收益下降</td>
+<td>因子失效</td>
+<td>开发新策略</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="九、下一篇预告"><a href="#九、下一篇预告" class="headerlink" title="九、下一篇预告"></a>九、下一篇预告</h2><p>在下一篇文章中，我们将介绍量化交易的<strong>常用工具与编程语言</strong>，帮助你选择合适的技术栈。</p>
+<blockquote>
+<p>📌 <strong>下一篇</strong>: [常用工具与编程语言]</p>
+</blockquote>
+<hr>
+<blockquote>
+<p><strong>系列导航</strong>:</p>
+<ul>
+<li><a href="04-strategy-types.md">上一篇: 量化策略的主要类型</a></li>
+<li><a href="06-tools-and-languages.md">下一篇: 常用工具与编程语言</a></li>
+</ul>
+</blockquote>
+<hr>
+<blockquote>
+<p><strong>免责声明</strong>: 本文仅供学习交流，不构成投资建议。量化交易有风险，入市需谨慎。</p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Quantitative-Trading/" class="category-chain-item">Quantitative Trading</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93/" class="print-no-link">#量化交易</a>
+      
+        <a href="/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/" class="print-no-link">#工作流程</a>
+      
+        <a href="/tags/%E5%9B%9E%E6%B5%8B/" class="print-no-link">#回测</a>
+      
+        <a href="/tags/%E5%AE%9E%E7%9B%98%E4%BA%A4%E6%98%93/" class="print-no-link">#实盘交易</a>
+      
+        <a href="/tags/%E6%95%B0%E6%8D%AE%E8%8E%B7%E5%8F%96/" class="print-no-link">#数据获取</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>量化交易的工作流程——量化交易入门系列（五）</div>
+      <div>https://littlebabyq.github.io/2026/05/16/Quantitative Trading/05-workflow/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>BabyQ</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年5月16日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/05/16/Quantitative%20Trading/06-tools-and-languages/" title="量化交易的常用工具与编程语言——量化交易入门系列（六）">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">量化交易的常用工具与编程语言——量化交易入门系列（六）</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/05/16/Quantitative%20Trading/07-data-sources/" title="量化交易的数据源与数据类型——量化交易入门系列（七）">
+                        <span class="hidden-mobile">量化交易的数据源与数据类型——量化交易入门系列（七）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
